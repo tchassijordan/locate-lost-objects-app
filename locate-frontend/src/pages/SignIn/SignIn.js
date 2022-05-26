@@ -6,6 +6,7 @@ import { LockClosedIcon } from "@heroicons/react/solid";
 import logo from "../../assets/logo&img/logo.png";
 import { ReactComponent as SignInSvg } from "../../assets/logo&img/svg/undraw_terms_re_6ak4.svg";
 import { BsFacebook, BsGoogle, BsTwitter } from "react-icons/bs";
+import { Input, Button } from "../../components/index";
 
 export default function SignIn() {
   const formik = useFormik({
@@ -63,53 +64,32 @@ export default function SignIn() {
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="space-y-6">
                 <div>
-                  <label htmlFor="email" className="sr-only">
-                    Email address
-                  </label>
-                  <div className="space-y-2">
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      required
-                      className="appearance-none rounded-md shadow-sm relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 bg-gray-200
-                  focus:z-10 sm:text-sm"
-                      placeholder="Email address"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.email}
-                    />
-                    <div className="text-xs text-red-700">
-                      {formik.touched.email && formik.errors.email ? (
-                        <div>{formik.errors.email}</div>
-                      ) : null}
-                    </div>
+                  <Input
+                    name="email"
+                    type="email"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.email}
+                  />
+                  <div className="text-xs text-red-600 tracking-wide">
+                    {formik.touched.email && formik.errors.email ? (
+                      <div>{formik.errors.email}</div>
+                    ) : null}
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="password" className="sr-only">
-                    Password
-                  </label>
-                  <div className="space-y-2">
-                    <input
-                      id="password"
-                      name="password"
-                      type="password"
-                      autoComplete="current-password"
-                      required
-                      className="appearance-none rounded-md shadow-sm relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 bg-gray-200 focus:z-10 sm:text-sm"
-                      placeholder="Password"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.password}
-                    />
-                    <div className="text-xs text-red-700">
-                      {formik.touched.password && formik.errors.password ? (
-                        <div>{formik.errors.password}</div>
-                      ) : null}
-                    </div>
+                  <Input
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.password}
+                    name="password"
+                    type="password"
+                  />
+                  <div className="text-xs text-red-600 tracking-wide">
+                    {formik.touched.password && formik.errors.password ? (
+                      <div>{formik.errors.password}</div>
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -141,18 +121,18 @@ export default function SignIn() {
               </div>
 
               <div>
-                <button
-                  type="submit"
-                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
-                >
-                  <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                    <LockClosedIcon
-                      className="h-5 w-5 text-orange-500 group-hover:text-orange-400"
-                      aria-hidden="true"
-                    />
-                  </span>
-                  Sign in
-                </button>
+                {
+                  <Button
+                    Icon={
+                      <LockClosedIcon
+                        className="h-5 w-5 text-orange-500 group-hover:text-orange-400"
+                        aria-hidden="true"
+                      />
+                    }
+                    placeholder="Sign in"
+                    type="submit"
+                  />
+                }
               </div>
             </form>
 
