@@ -1,10 +1,10 @@
+import React from 'react';
 import classNames from 'classnames';
-import ClassNames from 'classnames';
 
-export default function Input({ onChange, onBlur, value, name, type }) {
+export default function Input({ onChange, onBlur, value, name, type }: Prop) {
   const labelName = name.replaceAll('_', ' ');
   return (
-    <>
+    <div>
       <label
         htmlFor={name}
         className='block text-sm font-medium text-gray-700 capitalize'
@@ -22,6 +22,14 @@ export default function Input({ onChange, onBlur, value, name, type }) {
         onBlur={onBlur}
         value={value}
       />
-    </>
+    </div>
   );
+}
+
+type Prop = {
+  onChange: () => void,
+  onBlur: () => void,
+  name: string,
+  type: string,
+  value: string,  
 }
