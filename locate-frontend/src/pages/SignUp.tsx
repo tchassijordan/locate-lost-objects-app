@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import logo from "../assets/logo&img/logo.png";
@@ -7,8 +7,12 @@ import logoIcon from "../assets/logo&img/logo2.png";
 import { Input, Button } from "../components/index";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { BsFacebook, BsGoogle, BsTwitter } from "react-icons/bs";
+import { UserAuth } from "../utils/AuthContext";
 
 export default function SignUp() {
+  const { createUser } = UserAuth();
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       password: "",
@@ -24,14 +28,19 @@ export default function SignUp() {
         .email("Invalid email address")
         .required("Please enter your email"),
       password: Yup.string().required("Please enter your password"),
-      first_name: Yup.string().required("Please enter your first name"),
-      last_name: Yup.string().required("Please enter your last name"),
-      street_address: Yup.string().required("Please enter your address"),
-      region: Yup.string().required("Please enter your region"),
-      city: Yup.string().required("Please enter your city"),
+      //first_name: Yup.string().required("Please enter your first name"),
+      //last_name: Yup.string().required("Please enter your last name"),
+      //street_address: Yup.string().required("Please enter your address"),
+      //region: Yup.string().required("Please enter your region"),
+      //city: Yup.string().required("Please enter your city"),
     }),
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      try {
+        await createUser(values.email, values.password);
+        navigate("/account");
+      } catch (e) {
+        console.log(e);
+      }
     },
   });
 
@@ -60,10 +69,14 @@ export default function SignUp() {
               </Link>
             </li>
             <li className="text-base font-bold flex-shrink">
-              <Link to="" className="text-orange-600 hover:text-orange-700">Explore Lost object page</Link>
+              <Link to="" className="text-orange-600 hover:text-orange-700">
+                Explore Lost object page
+              </Link>
             </li>
             <li className="text-base font-bold flex-shrink">
-              <Link to="" className="text-orange-600 hover:text-orange-700">Learn more by visiting our page</Link>
+              <Link to="" className="text-orange-600 hover:text-orange-700">
+                Learn more by visiting our page
+              </Link>
             </li>
           </ul>
           <p className="text-gray-500 text-sm">
@@ -71,7 +84,12 @@ export default function SignUp() {
           </p>
           <ul className="list-disc flex flex-col list-inside space-y-2 pl-6">
             <li className="flex-shrink text-base">
-              <Link to="" className="font-bold text-orange-600 hover:text-orange-700 ">Terms of Service</Link>
+              <Link
+                to=""
+                className="font-bold text-orange-600 hover:text-orange-700 "
+              >
+                Terms of Service
+              </Link>
             </li>
           </ul>
         </div>
@@ -82,8 +100,8 @@ export default function SignUp() {
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-6 sm:col-span-3">
                     <Input
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
+                      onChange={() => formik.handleChange}
+                      onBlur={() => formik.handleBlur}
                       value={formik.values.first_name}
                       name="first_name"
                       type="text"
@@ -92,8 +110,8 @@ export default function SignUp() {
 
                   <div className="col-span-6 sm:col-span-3">
                     <Input
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
+                      onChange={() => formik.handleChange}
+                      onBlur={() => formik.handleBlur}
                       value={formik.values.last_name}
                       name="last_name"
                       type="text"
@@ -102,8 +120,8 @@ export default function SignUp() {
 
                   <div className="col-span-6">
                     <Input
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
+                      onChange={() => formik.handleChange}
+                      onBlur={() => formik.handleBlur}
                       value={formik.values.email}
                       name="email"
                       type="email"
@@ -112,8 +130,8 @@ export default function SignUp() {
 
                   <div className="col-span-6">
                     <Input
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
+                      onChange={() => formik.handleChange}
+                      onBlur={() => formik.handleBlur}
                       value={formik.values.password}
                       name="password"
                       type="password"
@@ -145,8 +163,8 @@ export default function SignUp() {
 
                   <div className="col-span-6">
                     <Input
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
+                      onChange={() => formik.handleChange}
+                      onBlur={() => formik.handleBlur}
                       value={formik.values.street_address}
                       name="street_address"
                       type="text"
@@ -155,8 +173,8 @@ export default function SignUp() {
 
                   <div className="col-span-6 sm:col-span-3">
                     <Input
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
+                      onChange={() => formik.handleChange}
+                      onBlur={() => formik.handleBlur}
                       value={formik.values.city}
                       name="city"
                       type="text"
@@ -165,8 +183,8 @@ export default function SignUp() {
 
                   <div className="col-span-6 sm:col-span-3">
                     <Input
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
+                      onChange={() => formik.handleChange}
+                      onBlur={() => formik.handleBlur}
                       value={formik.values.region}
                       name="region"
                       type="text"

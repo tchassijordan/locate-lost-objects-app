@@ -1,4 +1,6 @@
-export default function Button({ Icon, placeholder, type }) {
+import React from "react";
+
+export default function Button({ Icon, placeholder, type }: TProps) {
   return (
     <button
       type={type}
@@ -12,4 +14,10 @@ export default function Button({ Icon, placeholder, type }) {
       {placeholder}
     </button>
   );
+}
+
+type TProps = {
+  Icon: JSX.Element,
+  placeholder: string,
+  type: React.ButtonHTMLAttributes<HTMLButtonElement>["type"],
 }
