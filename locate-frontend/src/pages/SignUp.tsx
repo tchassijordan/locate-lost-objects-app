@@ -63,18 +63,18 @@ export default function SignUp() {
               Have you lost an object?{" "}
               <Link
                 to=""
-                className="text-orange-600 hover:text-orange-700 text-base"
+                className="text-primary hover:text-orange-700 text-base"
               >
                 Visit the Found object page
               </Link>
             </li>
             <li className="text-base font-bold flex-shrink">
-              <Link to="" className="text-orange-600 hover:text-orange-700">
+              <Link to="" className="text-primary hover:text-orange-700">
                 Explore Lost object page
               </Link>
             </li>
             <li className="text-base font-bold flex-shrink">
-              <Link to="" className="text-orange-600 hover:text-orange-700">
+              <Link to="" className="text-primary hover:text-orange-700">
                 Learn more by visiting our page
               </Link>
             </li>
@@ -86,7 +86,7 @@ export default function SignUp() {
             <li className="flex-shrink text-base">
               <Link
                 to=""
-                className="font-bold text-orange-600 hover:text-orange-700 "
+                className="font-bold text-primary hover:text-orange-700 "
               >
                 Terms of Service
               </Link>
@@ -202,6 +202,7 @@ export default function SignUp() {
                       aria-hidden="true"
                     />
                   }
+                  primary
                 />
               </div>
 

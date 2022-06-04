@@ -61,7 +61,7 @@ export default function SignIn() {
             <p className='mt-2 text-center text-sm text-gray-600'>
               Or{' '}
               <Link
-                className='font-medium text-orange-600 hover:text-orange-500'
+                className='font-medium text-primary hover:text-orange-500'
                 to='/sign_up'>
                 create a new account
               </Link>
@@ -117,7 +117,7 @@ export default function SignIn() {
                     id='remember-me'
                     name='remember-me'
                     type='checkbox'
-                    className='h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded'
+                    className='h-4 w-4 text-primary focus:ring-orange-500 border-gray-300 rounded'
                   />
                   <label
                     htmlFor='remember-me'
@@ -129,7 +129,7 @@ export default function SignIn() {
                 <div className='text-sm'>
                   <Link
                     to='#'
-                    className='font-medium text-orange-600 hover:text-orange-500'>
+                    className='font-medium text-primary hover:text-orange-500'>
                     Forgot your password?
                   </Link>
                 </div>
