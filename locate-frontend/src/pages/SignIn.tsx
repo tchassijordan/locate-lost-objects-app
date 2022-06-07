@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import logo from '../assets/logo&img/logo.png';
-import SignContractSVG  from '../assets/logo&img/svg/SignContractSVG';
+import SignContractSVG from '../assets/logo&img/svg/SignContractSVG';
 import { BsFacebook, BsGoogle, BsTwitter } from 'react-icons/bs';
 import { Input, Button } from '../components/index';
 import { UserAuth } from '../utils/AuthContext';
@@ -38,6 +38,12 @@ export default function SignIn() {
     try {
       await googleSignIn().then(navigate('/account'));
     } catch (e) {}
+  };
+
+  const btn = {
+    placeholder: 'Sign up',
+    Icon: LockClosedIcon,
+    primary: true
   };
 
   return (
@@ -135,20 +141,7 @@ export default function SignIn() {
                 </div>
               </div>
 
-              <div>
-                {
-                  <Button
-                    Icon={
-                      <LockClosedIcon
-                        className='h-5 w-5 text-orange-500 group-hover:text-orange-400'
-                        aria-hidden='true'
-                      />
-                    }
-                    placeholder='Sign in'
-                    type='submit'
-                  />
-                }
-              </div>
+              <div>{<Button link={btn} />}</div>
             </form>
 
             {/* Social Platforms section */}
