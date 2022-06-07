@@ -10,7 +10,7 @@ import Profile from '../pages/Profile';
 import Account from '../pages/Account';
 import ProtectedRoute from './ProtectedRoute';
 import PostObject from '../pages/PostObject';
-import Home from '../pages/Home';
+import Home from '../pages/Home/Home';
 
 const Router = () => {
   return (
@@ -21,7 +21,7 @@ const Router = () => {
           element={<Home />}
         />
 
-        <Route element={<FoundObject />} />
+        <Route path='found_object' element={<FoundObject />} />
 
         <Route
           path='lost_object'
