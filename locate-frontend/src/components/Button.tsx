@@ -2,43 +2,49 @@ import React from 'react';
 import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
-export default function Button({
-  Icon,
-  placeholder,
-  type,
-  classes,
-  primary,
-  secondary,
-  to
-}: TProps) {
+export default function Button({ link }: TBtnProps) {
   let style: string;
 
-  if (primary)
+  if (link.primary)
     style =
       'group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all';
-  else if (secondary) style = '';
+  else if (link.secondary) style = '';
   else style = '';
 
   return (
     <button
-      type={type}
-      className={cn(classes , style)}>
-      {Icon && (
-        <span className='absolute left-0 inset-y-0 flex items-center pl-3'>
-          {Icon}
-        </span>
+      className={cn(link.classes, style)}>
+      {link.Icon && (
+        <link.Icon
+          className={cn(
+            'h-5 w-5 text-orange-500 group-hover:text-orange-400 inset-y-0 flex items-center',
+            {
+              'order-10 ml-3 my-auto': link.text_first
+            },
+            { 'absolute left-0 pl-3': !link.text_first }
+          )}
+          aria-hidden
+        />
       )}
-      {to ? <Link to={to}>{placeholder}</Link> : placeholder}
+      {link.to ? (
+        <Link to={link.to}>{link.placeholder}</Link>
+      ) : (
+        link.placeholder
+      )}
     </button>
   );
 }
 
-type TProps = {
-  Icon?: JSX.Element;
+export type TBtnProps = {
+  link: TBtnLink;
+};
+
+export type TBtnLink = {
   placeholder: string;
-  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
   classes?: string;
   primary?: boolean;
   secondary?: boolean;
   to?: string;
+  text_first?: boolean;
+  Icon?: (props: any) => JSX.Element;
 };

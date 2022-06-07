@@ -4,6 +4,23 @@ import logo from '../../assets/logo&img/logo.png';
 import { Link } from 'react-router-dom';
 
 export default function Footer({ links }: TProps) {
+  const btnProps = {
+    found_object: {
+      classes:
+        'max-w-xs text-xs tracking-wide flex-grow p-2 sm:p-3 sm:tracking-wider shadow-2xl',
+      placeholder: 'Find Object',
+      primary: true,
+      to: 'found_object'
+    },
+    lost_object: {
+      classes:
+        'max-w-xs text-xs tracking-wide flex-grow p-2 sm:p-3 sm:tracking-wider shadow-2xl',
+      placeholder: 'Register Object',
+      primary: true,
+      to: 'lost_object'
+    }
+  };
+
   return (
     <footer className='bg-gray-700 text-white pt-8 sm:pt-20 flex flex-col justify-center items-center space-y-3 md:space-x-4 md:flex-row md:space-y-0'>
       <div className='w-full px-2 sm:px-6 lg:px-8 max-w-6xl flex flex-col justify-center itmes-center'>
@@ -20,19 +37,9 @@ export default function Footer({ links }: TProps) {
             </p>
           </div>
           <div className='flex items-center justify-center space-x-4 w-full max-w-sm px-2'>
-            <Button
-              classes='max-w-xs text-xs tracking-wide flex-grow p-2 sm:p-3 sm:tracking-wider shadow-2xl'
-              placeholder='Find Object'
-              primary
-              to='found_object'
-            />
+            <Button link={btnProps.found_object} />
             <div className='flex-shrink border-t border-primary basis-32 sm:basis-52'></div>
-            <Button
-              classes='max-w-xs text-xs tracking-wide flex-grow p-2 sm:p-3 sm:tracking-wider shadow-2xl'
-              placeholder='Register Object'
-              primary
-              to='lost_object'
-            />
+            <Button link={btnProps.lost_object} />
           </div>
         </div>
         <ul className='py-10 sm:py-12 border-b border-primary flex flex-col sm:flex-row space-y-10 sm:space-x-16 sm:space-y-0 px-2 sm:px-0'>
@@ -58,14 +65,20 @@ export default function Footer({ links }: TProps) {
                   <li
                     key={index}
                     className='text-gray-300'>
-                    <Link className='hover:underline' to={subLink.to}>{subLink.name}</Link>
+                    <Link
+                      className='hover:underline'
+                      to={subLink.to}>
+                      {subLink.name}
+                    </Link>
                   </li>
                 ))}
               </ul>
             </li>
           ))}
         </ul>
-        <p className='py-4 text-xs m-0 px-2 sm:px-0 tracking-wide'>&copy; Copyright 2022 - Locate</p>
+        <p className='py-4 text-xs m-0 px-2 sm:px-0 tracking-wide'>
+          &copy; Copyright 2022 - Locate
+        </p>
       </div>
     </footer>
   );
