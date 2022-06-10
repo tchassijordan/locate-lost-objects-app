@@ -2,7 +2,7 @@ import React from 'react';
 import { UserAuth } from '../utils/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-const Account = () => {
+export default function Account() {
   const { user, logOut } = UserAuth();
   const navigate = useNavigate();
 
@@ -11,11 +11,11 @@ const Account = () => {
       await logOut();
       navigate('/');
       console.log('You are logged out');
-    } catch (e) {
-      console.log(e.message);
+    } catch (error) {
+      console.log(error);
     }
   };
-  
+
   return (
     <div className='max-w-[600px] mx-auto my-16 p-4'>
       <h1 className='text-2xl font-bold py-4'> Account</h1>
@@ -28,6 +28,4 @@ const Account = () => {
       </button>
     </div>
   );
-};
-
-export default Account;
+}

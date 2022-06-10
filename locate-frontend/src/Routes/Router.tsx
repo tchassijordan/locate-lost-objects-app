@@ -10,7 +10,7 @@ import Profile from '../pages/Profile';
 import Account from '../pages/Account';
 import ProtectedRoute from './ProtectedRoute';
 import PostObject from '../pages/PostObject';
-import Home from '../pages/Home';
+import Home from '../pages/Home/index';
 
 const Router = () => {
   return (
@@ -21,7 +21,10 @@ const Router = () => {
           element={<Home />}
         />
 
-        <Route element={<FoundObject />} />
+        <Route
+          path='found_object'
+          element={<FoundObject />}
+        />
 
         <Route
           path='lost_object'
@@ -37,7 +40,8 @@ const Router = () => {
           path='sign_up'
           element={<SignUp />}
         />
-
+        
+        {/* Account is suppose to be a dynamic route so modify it */}
         <Route
           path='account'
           element={
@@ -47,14 +51,14 @@ const Router = () => {
           }
         />
 
+        {/* <Route
+          path='profile/:id'
+          element={<Profile />}
+        /> */}
+
         <Route
           path='post_object'
           element={<PostObject />}
-        />
-
-        <Route
-          path='profile/:id'
-          element={<Profile />}
         />
 
         <Route

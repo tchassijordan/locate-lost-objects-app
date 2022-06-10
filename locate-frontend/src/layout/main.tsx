@@ -3,23 +3,46 @@ import Navbar from './Navbar/index';
 import Footer from './Footer/index';
 import { UserAuth } from '../utils/AuthContext';
 
-export default function Main() {
-  const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
-    { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false }
+export default function Main({ children }: Props) {
+  const headerNavigation = [
+    { name: 'Home', to: '/'},
+    { name: 'Lost Objects', to: '/lost_objects' },
+    { name: 'Find Objects', to: '/found_object' },
+    { name: 'Team', to: '/team' }
+  ];
+
+  const footerNavigation = [
+    {
+      title: 'Quick Links',
+      subLinks: [
+        { name: 'Home', to: '/' },
+        { name: 'Lost Objects', to: '/lost_object' },
+        { name: 'Find Objects', to: '/found_object' }
+      ]
+    },
+    {
+      title: 'Discover',
+      subLinks: [
+        { name: 'Privacy Policy', to: '#' },
+        { name: 'Terms & Conditions', to: '#' },
+        { name: 'Owners', to: '#' }
+      ]
+    }
   ];
   const { user } = UserAuth();
 
   return (
-    <div className='flex flex-col justify-between'>
+    <div className='flex flex-col justify-between min-h-screen'>
       <Navbar
         user={user}
-        links={navigation}
+        links={headerNavigation}
       />
-      <div>This is the main area</div>
-      <Footer />
+      <div className='mt-16'>{children}</div>
+      <Footer links={footerNavigation} />
     </div>
   );
+}
+
+interface Props {
+  children: React.ReactNode;
 }
