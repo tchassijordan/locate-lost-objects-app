@@ -11,7 +11,7 @@ export default function PostItem({ object }: Props) {
     placeholder: 'Explore',
     primary: true,
     Icon: ArrowNarrowRightIcon,
-    classes: 'text-gray-50 w-32 flex justify-center items-center',
+    classes: 'w-32 flex justify-center items-center',
     text_first: true
   };
 

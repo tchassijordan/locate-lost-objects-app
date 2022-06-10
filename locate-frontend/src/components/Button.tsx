@@ -19,9 +19,9 @@ export default function Button({ link }: TBtnProps) {
           className={cn(
             'h-5 w-5 text-orange-500 group-hover:text-orange-400 inset-y-0 flex items-center',
             {
-              'order-10 ml-3 my-auto': link.text_first
+              'order-10 ml-2 text-gray-200': link.text_first
             },
-            { 'absolute left-0 pl-3': !link.text_first }
+            { '-order-1 mr-3 text-gray-200': !link.text_first }
           )}
           aria-hidden
         />
