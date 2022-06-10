@@ -39,8 +39,6 @@ export const AuthContextProvider = ({ children }) => {
     };
   }, []);
 
-  console.log(user);
-
   return (
     <UserContext.Provider
       value={{ createUser, user, logOut, signIn, googleSignIn }}>
