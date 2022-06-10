@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 
 export default function Button({ link }: TBtnProps) {
   let style: string;
+  const baseStyle = 'group relative flex justify-center items-center py-2 px-4 border text-sm font-medium text-white rounded-md focus:outline-none focus:ring-0 transition-all';
 
   if (link.primary)
     style =
-      'group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all';
-  else if (link.secondary) style = '';
+      cn('w-full bg-primary hover:bg-orange-700 border-transparent', baseStyle);
+  else if (link.secondary) style = cn('border-2 border-primary w-full hover:border-orange-700',baseStyle);
   else style = '';
 
   return (
