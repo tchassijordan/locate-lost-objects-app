@@ -37,7 +37,7 @@ export default function Main({ children }: Props) {
         user={user}
         links={headerNavigation}
       />
-      <div className='mt-16'>{children}</div>
+      <div className='mt-16 bg-gray-50'>{children}</div>
       <Footer links={footerNavigation} />
     </div>
   );

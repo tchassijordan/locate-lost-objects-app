@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { UserAuth } from '../../utils/AuthContext';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
@@ -55,7 +56,7 @@ export default function Navbar({ links, user }: TProps) {
                   <img
                     className='block h-8 w-auto lg:h-8'
                     src={logo}
-                    alt='Delphos-IQ logo'
+                    alt='Locate logo'
                   />
                 </div>
                 <nav className='hidden sm:block sm:ml-6 lg:ml-12'>
@@ -64,9 +65,9 @@ export default function Navbar({ links, user }: TProps) {
                       <li
                         key={index}
                         className='group'>
-                        <div className='text-gray-700 group-hover:cursor-pointer group-hover:text-primary border-b border-transparent group-hover:pb-[1px] group-hover:border-primary transition-all'>
+                        <Link to={link.to} className='text-gray-700 group-hover:cursor-pointer group-hover:text-primary border-b border-transparent group-hover:pb-[1px] group-hover:border-primary transition-all'>
                           {link.name}
-                        </div>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -147,9 +148,9 @@ export default function Navbar({ links, user }: TProps) {
                     <li
                       key={index}
                       className='group'>
-                      <span className='text-gray-700 group-hover:cursor-pointer group-hover:text-primary group-hover:border-b group-hover:pb-1 group-hover:border-primary'>
+                      <Link to={link.to} className='text-gray-700 group-hover:cursor-pointer group-hover:text-primary group-hover:border-b group-hover:pb-1 group-hover:border-primary'>
                         {link.name}
-                      </span>
+                      </Link>
                     </li>
                   ))}
                 </ul>

@@ -12,7 +12,8 @@ export default function PostItem({ object }: Props) {
     primary: true,
     Icon: ArrowNarrowRightIcon,
     classes: 'w-32 flex justify-center items-center',
-    text_first: true
+    text_first: true,
+    to: 'post_object',
   };
 
   return (
@@ -44,4 +45,5 @@ type TPostItem = {
   date: string;
   title: string;
   icon?: JSX.Element;
+  to?: '';
 };

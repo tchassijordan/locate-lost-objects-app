@@ -6,7 +6,7 @@ import LostObject from '../pages/LostObject';
 import AdminDashboard from '../pages/AdminDashboard';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
-import Profile from '../pages/Profile';
+//import Profile from '../pages/Profile';
 import Account from '../pages/Account';
 import ProtectedRoute from './ProtectedRoute';
 import PostObject from '../pages/PostObject';
