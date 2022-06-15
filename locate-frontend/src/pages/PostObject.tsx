@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import pic from '../assets/hero-bg.jpg';
 import Main from '../layout/main';
 
@@ -16,7 +16,24 @@ export default function PostObject() {
     date: '10-Jul-2022',
     location: 'Yaoundé'
   };
-  const { title, description, date, location, image } = object;
+
+  const [lostObjData, setLostObjData] = useState<TObject>(object);
+  const [isLoading, setISLoading ] = useState(true);
+
+  const { title, description, date, location, image } = lostObjData;
+
+  useEffect(() => {
+    if(isLoading) {
+      async function fetcher<TObject>(): Promise<TObject> {
+        const res = await fetch('http://127.0.0.1:8000/api/Passports/2');
+        const json = await res.json();
+        setISLoading(false);
+        setLostObjData(json);
+        return json;
+      }
+      fetcher();
+    }
+  });
 
   return (
     <Main>
@@ -32,7 +49,9 @@ export default function PostObject() {
           <div className='basis-2/5 flex flex-col space-y-4 overflow-y-scroll max-h-96'>
             <h1 className='text-xl sm:text-2xl'>{title}</h1>
             <div className='space-y-3'>
-              <p className='text-xs sm:text-sm tracking-wide text-gray-800'>{description}</p>
+              <p className='text-xs sm:text-sm tracking-wide text-gray-800'>
+                {description}
+              </p>
               <div className='space-x-4 flex text-gray-500 font-bold'>
                 <p className='text-xs sm:text-sm'>{date}</p>
                 <p className='text-xs sm:text-sm'>{location}</p>
