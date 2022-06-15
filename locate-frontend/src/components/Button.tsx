@@ -4,17 +4,25 @@ import { Link } from 'react-router-dom';
 
 export default function Button({ link }: TBtnProps) {
   let style: string;
-  const baseStyle = 'group relative flex justify-center items-center py-2 px-4 border text-sm font-medium text-white rounded-md focus:outline-none focus:ring-0 transition-all';
+  const baseStyle =
+    'group relative flex justify-center items-center py-2 px-4 border text-sm font-medium text-white rounded-md focus:outline-none focus:ring-0 transition-all';
 
   if (link.primary)
-    style =
-      cn('w-full bg-primary hover:bg-orange-700 border-transparent', baseStyle);
-  else if (link.secondary) style = cn('border-2 border-primary w-full hover:border-orange-700',baseStyle);
+    style = cn(
+      'w-full bg-primary hover:bg-orange-700 border-transparent',
+      baseStyle
+    );
+  else if (link.secondary)
+    style = cn(
+      'border-2 border-primary w-full hover:border-orange-700',
+      baseStyle
+    );
   else style = '';
 
   return (
     <button
-      className={cn(link.classes, style)}>
+      className={cn(link.classes, style)}
+      onClick={link.action}>
       {link.Icon && (
         <link.Icon
           className={cn(
@@ -48,4 +56,5 @@ export type TBtnLink = {
   to?: string;
   text_first?: boolean;
   Icon?: (props: any) => JSX.Element;
+  action?: () => void;
 };
