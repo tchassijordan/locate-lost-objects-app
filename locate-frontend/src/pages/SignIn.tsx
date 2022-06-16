@@ -4,7 +4,6 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import logo from '../assets/logo&img/logo.png';
-import SignContractSVG  from '../assets/logo&img/svg/SignContractSVG';
 import { BsFacebook, BsGoogle, BsTwitter } from 'react-icons/bs';
 import { Input, Button } from '../components/index';
 import { UserAuth } from '../utils/AuthContext';
@@ -27,7 +26,7 @@ export default function SignIn() {
     onSubmit: async (values) => {
       try {
         await signIn(values.email, values.password);
-        navigate('/account');
+        navigate('/');
       } catch (error) {
         console.log(error);
       }
@@ -36,16 +35,19 @@ export default function SignIn() {
 
   const handleGoogleSignIn = async () => {
     try {
-      await googleSignIn().then(navigate('/account'));
+      await googleSignIn().then(navigate('/'));
     } catch (e) {}
+  };
+
+  const btn = {
+    placeholder: 'Sign up',
+    Icon: LockClosedIcon,
+    primary: true
   };
 
   return (
     <>
       <div className='min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative bg-gray-100 lg:space-x-10'>
-        <div className='hidden lg:block'>
-          <SignContractSVG />
-        </div>
         <div className='max-w-md space-y-4'>
           <div>
             <div>
@@ -61,7 +63,7 @@ export default function SignIn() {
             <p className='mt-2 text-center text-sm text-gray-600'>
               Or{' '}
               <Link
-                className='font-medium text-orange-600 hover:text-orange-500'
+                className='font-medium text-primary hover:text-orange-500'
                 to='/sign_up'>
                 create a new account
               </Link>
@@ -117,7 +119,7 @@ export default function SignIn() {
                     id='remember-me'
                     name='remember-me'
                     type='checkbox'
-                    className='h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded'
+                    className='h-4 w-4 text-primary focus:ring-orange-500 border-gray-300 rounded'
                   />
                   <label
                     htmlFor='remember-me'
@@ -129,26 +131,13 @@ export default function SignIn() {
                 <div className='text-sm'>
                   <Link
                     to='#'
-                    className='font-medium text-orange-600 hover:text-orange-500'>
+                    className='font-medium text-primary hover:text-orange-500'>
                     Forgot your password?
                   </Link>
                 </div>
               </div>
 
-              <div>
-                {
-                  <Button
-                    Icon={
-                      <LockClosedIcon
-                        className='h-5 w-5 text-orange-500 group-hover:text-orange-400'
-                        aria-hidden='true'
-                      />
-                    }
-                    placeholder='Sign in'
-                    type='submit'
-                  />
-                }
-              </div>
+              <div>{<Button link={btn} />}</div>
             </form>
 
             {/* Social Platforms section */}

@@ -1,7 +1,6 @@
 export type TNavigationLink = {
   name: string;
-  current: boolean;
-  href: string;
+  to: string;
 };
 
 export type TProps = {
