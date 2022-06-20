@@ -1,8 +1,6 @@
 import React from 'react';
 import { Routes } from 'react-router';
 import { Route } from 'react-router-dom';
-import FoundObject from '../pages/FoundObject';
-import LostObject from '../pages/LostObject';
 import AdminDashboard from '../pages/AdminDashboard';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
@@ -20,17 +18,7 @@ const Router = () => {
           index
           element={<Home />}
         />
-
-        <Route
-          path='found_object'
-          element={<FoundObject />}
-        />
-
-        <Route
-          path='lost_object'
-          element={<LostObject />}
-        />
-
+        
         <Route
           path='sign_in'
           element={<SignIn />}
