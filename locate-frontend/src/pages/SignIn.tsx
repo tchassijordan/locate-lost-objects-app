@@ -86,8 +86,8 @@ export default function SignIn() {
                   <Input
                     name='email'
                     type='email'
-                    onChange={() => formik.handleChange}
-                    onBlur={() => formik.handleBlur}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     value={formik.values.email}
                   />
                   <div className='text-xs text-red-600 tracking-wide'>
@@ -99,8 +99,8 @@ export default function SignIn() {
 
                 <div>
                   <Input
-                    onChange={() => formik.handleChange}
-                    onBlur={() => formik.handleBlur}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     value={formik.values.password}
                     name='password'
                     type='password'

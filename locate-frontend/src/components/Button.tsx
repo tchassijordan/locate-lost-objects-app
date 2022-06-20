@@ -22,7 +22,8 @@ export default function Button({ link }: TBtnProps) {
   return (
     <button
       className={cn(link.classes, style)}
-      onClick={link.action}>
+      onClick={link.action}
+      type={link.type}>
       {link.Icon && (
         <link.Icon
           className={cn(
@@ -55,6 +56,7 @@ export type TBtnLink = {
   secondary?: boolean;
   to?: string;
   text_first?: boolean;
+  type?: 'button' | 'submit' | 'reset' | undefined;
   Icon?: (props: any) => JSX.Element;
   action?: () => void;
 };

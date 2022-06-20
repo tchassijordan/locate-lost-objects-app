@@ -119,8 +119,8 @@ export default function SignUp() {
                 <div className='grid grid-cols-6 gap-6'>
                   <div className='col-span-6 sm:col-span-3'>
                     <Input
-                      onChange={() => formik.handleChange}
-                      onBlur={() => formik.handleBlur}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.first_name}
                       name='first_name'
                       type='text'
@@ -129,8 +129,8 @@ export default function SignUp() {
 
                   <div className='col-span-6 sm:col-span-3'>
                     <Input
-                      onChange={() => formik.handleChange}
-                      onBlur={() => formik.handleBlur}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.last_name}
                       name='last_name'
                       type='text'
@@ -139,8 +139,8 @@ export default function SignUp() {
 
                   <div className='col-span-6'>
                     <Input
-                      onChange={() => formik.handleChange}
-                      onBlur={() => formik.handleBlur}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.email}
                       name='email'
                       type='email'
@@ -149,8 +149,8 @@ export default function SignUp() {
 
                   <div className='col-span-6'>
                     <Input
-                      onChange={() => formik.handleChange}
-                      onBlur={() => formik.handleBlur}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.password}
                       name='password'
                       type='password'
@@ -180,8 +180,8 @@ export default function SignUp() {
 
                   <div className='col-span-6'>
                     <Input
-                      onChange={() => formik.handleChange}
-                      onBlur={() => formik.handleBlur}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.street_address}
                       name='street_address'
                       type='text'
@@ -190,8 +190,8 @@ export default function SignUp() {
 
                   <div className='col-span-6 sm:col-span-3'>
                     <Input
-                      onChange={() => formik.handleChange}
-                      onBlur={() => formik.handleBlur}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.city}
                       name='city'
                       type='text'
@@ -200,8 +200,8 @@ export default function SignUp() {
 
                   <div className='col-span-6 sm:col-span-3'>
                     <Input
-                      onChange={() => formik.handleChange}
-                      onBlur={() => formik.handleBlur}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.region}
                       name='region'
                       type='text'

@@ -27,8 +27,8 @@ export default function Input({ onChange, onBlur, value, name, type }: Prop) {
 }
 
 type Prop = {
-  onChange: () => void,
-  onBlur: () => void,
+  onChange: any,
+  onBlur: any,
   name: string,
   type: string,
   value: string,  
