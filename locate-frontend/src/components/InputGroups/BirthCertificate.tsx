@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from '../../../../components';
+import { Input } from '..';
 
 export default function BirthCertificate({
   onChange,
@@ -18,7 +18,7 @@ export default function BirthCertificate({
 }
 
 export type TBCProps = {
-  onChange: () => void;
-  onBlur: () => void;
+  onChange: any;
+  onBlur: any;
   town_hall: string;
 };

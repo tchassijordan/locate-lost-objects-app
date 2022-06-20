@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from '../../../../components';
+import { Input } from '..';
 
 export default function Passport({
   onChange,
@@ -36,8 +36,8 @@ export default function Passport({
 }
 
 export type TBCProps = {
-  onChange: () => void;
-  onBlur: () => void;
+  onChange: any;
+  onBlur: any;
   ville_deliverance: string;
   expiration: string;
   postID: string;

@@ -1,6 +1,0 @@
-export {default as CNI } from './CNI'
-export {default as BirthCertificate } from './BirthCertificate'
-export {default as OtherDocuments } from './OtherDocuments'
-export {default as Documents } from './Documents'
-export {default as Passports } from './Passport'
-export {default as DiffObjects } from './DiffObjects'

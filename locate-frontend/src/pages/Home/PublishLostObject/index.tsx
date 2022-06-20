@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import categories from '../../../lib/data';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import LoadingSVG from '../../../assets/icons/LoadingSVG';
+import cn from 'classnames';
 import {
   Snackbar,
   TSnackbarCategorie,
   Input,
-  Button
-} from '../../../components';
-import categories from '../../../lib/data';
-import Modal from '../../../Modal';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import {
-  //CNI,
+  Button,
   BirthCertificate,
-  //DiffObjects,
-  //OtherDocuments,
-  Passports
-  //Documents
-} from './Categories';
+  Passports,
+  TBtnLink
+} from '../../../components';
 
-export default function PublishLostObject({ isActive, switchIsActive }: TProps) {
+export default function PublishLostObject({
+  isActive,
+  switchIsActive
+}: TProps) {
   const [selected, setSelected] = useState<TSnackbarCategorie>('all');
   const [path, setPath] = useState('api/Lost-Objects');
 
@@ -28,7 +27,6 @@ export default function PublishLostObject({ isActive, switchIsActive }: TProps) 
       description: '',
       date: '',
       location: '',
-      image: '',
       town_hall: '',
       city: '',
       ville_deliverance: '',
@@ -36,25 +34,33 @@ export default function PublishLostObject({ isActive, switchIsActive }: TProps) 
       postID: ''
     },
     validationSchema: Yup.object({
-      title: Yup.string().required('Please enter your first name'),
-      description: Yup.string().required('Please enter your last name'),
-      location: Yup.string().required('Please enter your address'),
-      region: Yup.string().required('Please enter your region')
+      title: Yup.string().required('Please enter a title for this object'),
+      description: Yup.string().required(
+        'Please enter a vivid description of this object'
+      ),
+      date: Yup.string()
+        .required('Accepted format YYYY-MM-DD')
+        .matches(/^\d{4}-\d{2}-\d{2}$/, 'Accepted format YYYY-MM-DD')
     }),
-    onSubmit: async () => {
-      postData();
-    }
+    onSubmit: async (values) => postData(values)
   });
 
-  const postData = async () => {
+  const postData = async (values: any) => {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    const response = await fetch(`http://127.0.0.1:8000/${path}`, {
+    const request = new Request(`http://127.0.0.1:8000/${path}`, {
       method: 'POST',
-      headers,
-      body: JSON.stringify(formik.values)
+      body: JSON.stringify(values)
     });
-    return response.json();
+    try {
+      const response = await fetch(request, { headers });
+      if (response.status === 200) {
+        formik.resetForm();
+        switchIsActive();
+      }
+    } catch (error) {
+      console.error('Error returned: ', error);
+    }
   };
 
   useEffect(() => {
@@ -69,91 +75,123 @@ export default function PublishLostObject({ isActive, switchIsActive }: TProps) 
     else return;
   }, [selected]);
 
-  const submitBtnProps = {
+  const submitBtnProps: TBtnLink = {
     placeholder: 'Publish',
     primary: true,
-    classes: 'w-fit'
+    classes: 'w-fit',
+    action: formik.handleSubmit,
+    type: 'submit'
   };
 
   const cancelBtnProps = {
     placeholder: 'Cancel',
     secondary: true,
     classes: 'text-primary w-fit',
-    action: switchIsActive,
+    action: () => {
+      formik.resetForm();
+      switchIsActive();
+    }
   };
 
   return (
-    <div>
+    <div
+      className={cn(
+        {
+          'fixed w-screen h-screen flex items-center justify-center overflow-scroll top-0 left-0 bg-gray-300 z-20 ':
+            isActive
+        },
+        { hidden: !isActive }
+      )}>
       {isActive ? (
-        <Modal>
-          <div className='fixed z-20 top-[10%] w-3/5 bg-gray-100 py-8 px-10 space-y-6 rounded-md shadow-xl'>
-            <Snackbar
-              categories={categories}
-              selectedCat={selected}
-              selectedCatHandler={(prop) => setSelected(prop)}
-            />
-            <form
-              action='#'
-              method='POST'
-              onSubmit={formik.handleSubmit}
-              className='space-y-4'>
-              <div className='grid grid-cols-3 space-x-4'>
+        <div className='bg-gray-100 py-8 px-10 space-y-6 rounded-md shadow-xl'>
+          <Snackbar
+            categories={categories}
+            selectedCat={selected}
+            selectedCatHandler={(prop) => setSelected(prop)}
+          />
+          <form
+            onSubmit={formik.handleSubmit}
+            className='space-y-4'>
+            <div className='grid grid-cols-3 space-x-4'>
+              <div>
                 <Input
-                  onChange={() => formik.handleChange}
-                  onBlur={() => formik.handleBlur}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   value={formik.values.title}
                   name='title'
                   type='text'
                 />
+                <div className='text-xs sm:text-sm text-red-600 tracking-wide'>
+                  {formik.touched.title && formik.errors.title ? (
+                    <p>{formik.errors.title}</p>
+                  ) : null}
+                </div>
+              </div>
+              <div className=''>
                 <Input
-                  onChange={() => formik.handleChange}
-                  onBlur={() => formik.handleBlur}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   value={formik.values.date}
                   name='date'
                   type='text'
                 />
-                <Input
-                  onChange={() => formik.handleChange}
-                  onBlur={() => formik.handleBlur}
-                  value={formik.values.location}
-                  name='location'
-                  type='text'
-                />
+                <div className='text-xs sm:text-sm text-red-600 tracking-wide'>
+                  {formik.touched.date && formik.errors.date ? (
+                    <p>{formik.errors.date}</p>
+                  ) : null}
+                </div>
               </div>
               <Input
-                onChange={() => formik.handleChange}
-                onBlur={() => formik.handleBlur}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.location}
+                name='location'
+                type='text'
+              />
+            </div>
+            <div>
+              <Input
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 value={formik.values.description}
                 name='description'
                 type='text'
               />
-              {selected === 'Birth Certificate' && (
-                <BirthCertificate
-                  onChange={() => formik.handleChange}
-                  onBlur={() => formik.handleBlur}
-                  town_hall={formik.values.town_hall}
-                />
-              )}
-              {selected === 'Passports' && (
-                <Passports
-                  onChange={() => formik.handleChange}
-                  onBlur={() => formik.handleBlur}
-                  expiration={formik.values.expiration}
-                  ville_deliverance={formik.values.ville_deliverance}
-                  postID={formik.values.postID}
-                />
-              )}
-              <div className='space-x-8 flex'>
-                <div className='w-fit py-3 bg-gray-100 text-right '>
-                  <Button link={cancelBtnProps} />
-                </div> 
-                <div className='w-fit py-3 bg-gray-100 text-right ' onClick={() => switchIsActive()}>
-                  <Button link={submitBtnProps} />
-                </div>
+              <div className='text-xs sm:text-sm text-red-600 tracking-wide'>
+                {formik.touched.description && formik.errors.description ? (
+                  <p>{formik.errors.description}</p>
+                ) : null}
               </div>
-            </form>
-          </div>
-        </Modal>
+            </div>
+            {selected === 'Birth Certificate' && (
+              <BirthCertificate
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                town_hall={formik.values.town_hall}
+              />
+            )}
+            {selected === 'Passports' && (
+              <Passports
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                expiration={formik.values.expiration}
+                ville_deliverance={formik.values.ville_deliverance}
+                postID={formik.values.postID}
+              />
+            )}
+            <div className='space-x-8 flex items-center'>
+              <div className='w-fit py-3 bg-gray-100 text-right '>
+                <Button link={cancelBtnProps} />
+              </div>
+              <div className='w-fit py-3 bg-gray-100 text-right '>
+                <Button link={submitBtnProps} />
+              </div>
+              {formik.isSubmitting ? (
+                <LoadingSVG className='text-primary animate-spin w-[40px] h-[40px]' />
+              ) : null}
+            </div>
+          </form>
+        </div>
       ) : null}
     </div>
   );
