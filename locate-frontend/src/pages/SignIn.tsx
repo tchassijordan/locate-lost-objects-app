@@ -150,7 +150,7 @@ export default function SignIn() {
                 <div className='flex-grow border-t border-gray-300'></div>
               </div>
               <div className='flex space-x-3 w-full pb-6'>
-                <button className='px-4 py-2 flex justify-center items-center border border-gray-300 rounded-md flex-grow'>
+                <button className='px-4 py-2 flex justify-center items-center border border-gray-300 rounded-md flex-grow cursor-not-allowed'>
                   <BsFacebook
                     className='text-gray-600'
                     onClick={() => {
@@ -164,7 +164,7 @@ export default function SignIn() {
                     onClick={handleGoogleSignIn}
                   />
                 </button>
-                <button className='px-4 py-2 flex justify-center items-center border border-gray-300 rounded-md flex-grow'>
+                <button className='px-4 py-2 flex justify-center items-center border border-gray-300 rounded-md flex-grow cursor-not-allowed'>
                   <BsTwitter
                     className='text-gray-600'
                     onClick={() => {
