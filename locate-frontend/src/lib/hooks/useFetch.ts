@@ -1,6 +1,6 @@
 import { TObject } from '../../pages/PostObject';
 
-const useFetch = async ({ path, requestType }: TFProps): Promise<any> => {
+const useFetch = async ({ path, requestType }: TFProps): Promise<[]> => {
   const headers = new Headers();
   headers.append('Content-Type', 'application/json');
 
@@ -10,7 +10,7 @@ const useFetch = async ({ path, requestType }: TFProps): Promise<any> => {
     return json;
   }
   
-  return;
+  return [];
 };
 
 export default useFetch;
