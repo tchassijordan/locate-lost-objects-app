@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Main from '../../layout/main';
 import FoundObjects from './FeaturedObjSection/FoundObj';
 import LostObjects from './FeaturedObjSection/LostObj';
-import { postData } from './data';
 import { Button } from '../../components';
 import { SearchIcon } from '@heroicons/react/outline';
 import cn from 'classnames';
@@ -84,7 +83,7 @@ export default function Home() {
                   </button>
                 </div>
                 {isFoundObj ? (
-                  <FoundObjects objects={postData} />
+                  <FoundObjects />
                 ) : (
                   <LostObjects />
                 )}

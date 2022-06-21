@@ -1,28 +1,11 @@
 import React from 'react';
-import { PostItem } from '../../../../components/index';
+import Viz from '../Viz';
 
-export default function FoundObjects({ objects }: Props) {
+export default function FoundObjects() {
   return (
-    <div className='grid grid-cols-4 grid-rows-2 gap-10'>
-      {objects
-        ? objects.map((object, index) => (
-            <div
-              key={index}
-              className='bg-gray-200 shadow-md'>
-              <PostItem object={object} />
-            </div>
-          ))
-        : null}
-    </div>
+    <Viz
+      requestMethod='GET'
+      family='foundObjects'
+    />
   );
 }
-
-type Props = {
-  objects: ObjectItem[];
-};
-
-type ObjectItem = {
-  img: string;
-  date: string;
-  title: string;
-};
