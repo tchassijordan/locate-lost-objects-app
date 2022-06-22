@@ -19,7 +19,11 @@
     "noUnusedParameters": true,
     "outDir": "dist",
     "incremental": true,
-    "removeComments": true
+    "removeComments": true,
+    "baseUrl": "./src",
+    "paths": {
+      "~/*": ["*"]
+    }
   },
   "include": ["images.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "build"]

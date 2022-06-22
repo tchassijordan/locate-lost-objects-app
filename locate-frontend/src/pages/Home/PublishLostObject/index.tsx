@@ -13,6 +13,7 @@ import {
   Passports,
   TBtnLink
 } from '../../../components';
+import ApiSelector from '../../../utils/ApiSelector';
 
 export default function PublishLostObject({
   isActive,
@@ -65,14 +66,11 @@ export default function PublishLostObject({
 
   useEffect(() => {
     //change path state to match activated selected
-    if (selected === 'all') setPath('api/Lost-Objects');
-    else if (selected === 'all documents') setPath('api/Documents');
-    else if (selected === 'CNI') setPath('api/CNI');
-    else if (selected === 'Passports') setPath('api/Passports');
-    else if (selected === 'Birth Certificate') setPath('api/Birth-certificate');
-    else if (selected === 'Other Documents') setPath('api/Others-Documents');
-    else if (selected === 'Non documents') setPath('api/Others-Lost-Objects');
-    else return;
+    const renderedPath = ApiSelector({
+      selectedCat: selected,
+      family: 'foundObjects'
+    });
+    setPath(renderedPath);
   }, [selected]);
 
   const submitBtnProps: TBtnLink = {
