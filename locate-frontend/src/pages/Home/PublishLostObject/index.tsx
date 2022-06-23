@@ -68,9 +68,9 @@ export default function PublishLostObject({
     //change path state to match activated selected
     const renderedPath = ApiSelector({
       selectedCat: selected,
-      family: 'foundObjects'
+      family: 'lostObjects'
     });
-    setPath(renderedPath);
+    renderedPath && setPath(renderedPath);
   }, [selected]);
 
   const submitBtnProps: TBtnLink = {
