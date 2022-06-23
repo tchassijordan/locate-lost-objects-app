@@ -33,7 +33,7 @@ export default function Viz({ requestMethod, family }: TVizProps) {
 
   useEffect(() => {
     const renderedPath = ApiSelector(apiProps);
-    setPath(renderedPath);
+    renderedPath && setPath(renderedPath);
     Fetcher();
     // eslint-disable-next-line
   }, [selectedCat, path]);
