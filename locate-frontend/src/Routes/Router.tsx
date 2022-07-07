@@ -45,7 +45,7 @@ const Router = () => {
         /> */}
 
         <Route
-          path='post_object'
+          path='post_object/:id'
           element={<PostObject />}
         />
 

@@ -6,7 +6,7 @@ import useFetch, { TFProps } from '../../../lib/hooks/useFetch';
 import ApiSelector, { TApiProps } from '../../../utils/ApiSelector';
 import cn from 'classnames';
 
-export default function Viz({ requestMethod, family }: TVizProps) {
+export default function Viz({ requestMethod, family, isFoundObj }: TVizProps) {
   const defaultPath =
     family === 'lostObjects' ? 'api/Lost-Objects' : 'api/Found-Objects';
   
@@ -17,7 +17,8 @@ export default function Viz({ requestMethod, family }: TVizProps) {
 
   const params: TFProps = {
     path: path,
-    requestType: requestMethod
+    requestType: requestMethod,
+    foundObject: isFoundObj
   };
 
   const apiProps: TApiProps = {
@@ -37,6 +38,8 @@ export default function Viz({ requestMethod, family }: TVizProps) {
     Fetcher();
     // eslint-disable-next-line
   }, [selectedCat, path]);
+
+  console.log(APIObjects);
 
   return (
     <div className='space-y-6'>
@@ -83,9 +86,11 @@ type ObjectItem = {
   img: string;
   date: string;
   title: string;
+  id: number;
 };
 
 export type TVizProps = {
   requestMethod: 'GET' | 'POST' | 'PUT' | 'DELETE';
   family: 'lostObjects' | 'foundObjects';
+  isFoundObj?: boolean;
 };

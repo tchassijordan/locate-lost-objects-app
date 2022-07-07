@@ -5,7 +5,7 @@ import LostObjects from './FeaturedObjSection/LostObj';
 import { Button } from '../../components';
 import { SearchIcon } from '@heroicons/react/outline';
 import cn from 'classnames';
-import PublishLostObject from './PublishLostObject';
+import { PublishObjViz } from './PublishLostObject';
 
 export default function Home() {
   const [isFoundObj, setIsFoundObj] = useState(true);
@@ -83,17 +83,15 @@ export default function Home() {
                   </button>
                 </div>
                 {isFoundObj ? (
-                  <FoundObjects />
+                  <FoundObjects isFoundObj={isFoundObj} />
                 ) : (
                   <LostObjects />
                 )}
               </div>
-              <div>
-                <PublishLostObject
-                  isActive={active}
-                  switchIsActive={() => setActive(!active)}
-                />
-              </div>
+              <PublishObjViz
+                isActive={active}
+                switchIsActive={() => setActive(!active)}
+              />
             </div>
           </div>
         </div>

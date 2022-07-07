@@ -47,6 +47,7 @@ export default function Button({ link }: TBtnProps) {
 
 export type TBtnProps = {
   link: TBtnLink;
+  id?: number;
 };
 
 export type TBtnLink = {
@@ -54,7 +55,7 @@ export type TBtnLink = {
   classes?: string;
   primary?: boolean;
   secondary?: boolean;
-  to?: string;
+  to?: string | {};
   text_first?: boolean;
   type?: 'button' | 'submit' | 'reset' | undefined;
   Icon?: (props: any) => JSX.Element;

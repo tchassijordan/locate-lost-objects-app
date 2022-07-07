@@ -1,20 +1,10 @@
 import React from 'react';
 import Button from './Button';
 import pic from '../assets/hero-bg.jpg';
-import { TBtnLink } from './Button';
 import { ArrowNarrowRightIcon } from '@heroicons/react/outline';
 
 export default function PostItem({ object }: Props) {
-  const { date, title } = object;
-  
-  const btnProps: TBtnLink = {
-    placeholder: 'Explore',
-    primary: true,
-    Icon: ArrowNarrowRightIcon,
-    classes: 'w-32 flex justify-center items-center',
-    text_first: true,
-    to: 'post_object',
-  };
+  const { date, title, id } = object;
 
   return (
     <>
@@ -30,7 +20,20 @@ export default function PostItem({ object }: Props) {
           <h2 className='text-gray-900'>{title}</h2>
           <p className='text-xs sm:text-sm text-gray-600'>{date}</p>
         </div>
-        <Button link={btnProps} />
+        {/* dynamic routing isn't functioning */}
+        <Button
+          link={{
+            placeholder: 'Explore',
+            primary: true,
+            Icon: ArrowNarrowRightIcon,
+            classes: 'w-32 flex justify-center items-center',
+            text_first: true,
+            to: {
+              pathname: `post_object/${id}`,
+              state: { object }
+            }
+          }}
+        />
       </div>
     </>
   );
@@ -38,6 +41,7 @@ export default function PostItem({ object }: Props) {
 
 interface Props {
   object: TPostItem;
+  id?: number;
 }
 
 type TPostItem = {
@@ -46,4 +50,6 @@ type TPostItem = {
   title: string;
   icon?: JSX.Element;
   to?: '';
+  apiPath?: '';
+  id?: number
 };

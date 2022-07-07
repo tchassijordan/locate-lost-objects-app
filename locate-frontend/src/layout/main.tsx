@@ -6,9 +6,9 @@ import { UserAuth } from '../utils/AuthContext';
 export default function Main({ children }: Props) {
   const headerNavigation = [
     { name: 'Home', to: '/'},
-    { name: 'Lost Objects', to: '/lost_objects' },
-    { name: 'Find Objects', to: '/found_object' },
-    { name: 'Team', to: '/team' }
+    // { name: 'Lost Objects', to: '/lost_objects' },
+    // { name: 'Find Objects', to: '/found_object' },
+    // { name: 'Team', to: '/team' }
   ];
 
   const footerNavigation = [
