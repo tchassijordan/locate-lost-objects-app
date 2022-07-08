@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Main from '../../layout/main';
 import FoundObjects from './FeaturedObjSection/FoundObj';
 import LostObjects from './FeaturedObjSection/LostObj';
-import { Button } from '../../components';
+import { Button } from '~/components';
 import { SearchIcon } from '@heroicons/react/outline';
 import cn from 'classnames';
-import { PublishObjViz } from './PublishLostObject';
+import { PostServiceViz } from '~/services';
 
 export default function Home() {
   const [isFoundObj, setIsFoundObj] = useState(true);
@@ -88,9 +88,9 @@ export default function Home() {
                   <LostObjects />
                 )}
               </div>
-              <PublishObjViz
-                isActive={active}
-                switchIsActive={() => setActive(!active)}
+              <PostServiceViz
+                showModal={active}
+                setShowModal={() => setActive(!active)}
               />
             </div>
           </div>

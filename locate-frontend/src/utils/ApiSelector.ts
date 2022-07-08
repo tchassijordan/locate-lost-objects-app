@@ -1,4 +1,4 @@
-import { TSnackbarCategorie } from '../components/index';
+import { Collections } from '~/pages/Home/FeaturedObjSection/Viz';
 
 export default function ApiSelector({ selectedCat, family }: TApiProps) {
   if (family === 'lostObjects') {
@@ -41,6 +41,6 @@ export default function ApiSelector({ selectedCat, family }: TApiProps) {
 }
 
 export type TApiProps = {
-  selectedCat: TSnackbarCategorie;
+  selectedCat: Collections;
   family: 'lostObjects' | 'foundObjects';
 };

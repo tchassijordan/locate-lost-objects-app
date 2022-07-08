@@ -1,0 +1,11 @@
+export { default as PostServiceViz } from './Viz';
+export { default as sendPostObjData } from './hooks/usePostObj';
+export { default as Passport } from './features/Passport';
+export { default as BirthCertificate } from './features/BirthCertificate';
+export { default as CNI } from './features/CNI';
+export { default as OtherDocs } from './features/OtherDocs';
+export { default as Others } from './features/Others';
+export type { TServices, TServiceProps } from './types';
+export { default as postObjHandler } from './hooks/usePostObj';
+export { default as FormTemplateViz } from './features/FormTemplateViz';
+export { default as baseSchema } from './features/utils/validationSchema';

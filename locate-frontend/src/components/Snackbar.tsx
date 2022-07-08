@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
 import cn from 'classnames';
+import { Collections } from '~/pages/Home/FeaturedObjSection/Viz';
 
 export default function Snackbar({
   categories,
@@ -47,7 +48,8 @@ export default function Snackbar({
                         'cursor-default select-none relative py-2 pl-3 pr-9'
                       )
                     }
-                    value={categorie} onClick={() => selectedCatHandler(categorie)}>
+                    value={categorie}
+                    onClick={() => selectedCatHandler(categorie)}>
                     {({ selected, active }) => (
                       <>
                         <div className='flex items-center'>
@@ -88,12 +90,10 @@ export default function Snackbar({
 export type TSnackbarProps = {
   categories: TSnackbarCategorie[];
   selectedCatHandler: (selected: TSnackbarCategorie) => void;
-  selectedCat: TSnackbarCategorie;
+  selectedCat: Collections;
 };
 
 export type TSnackbarCategorie =
-  | 'all'
-  | 'all documents'
   | 'CNI'
   | 'Passports'
   | 'Birth Certificate'

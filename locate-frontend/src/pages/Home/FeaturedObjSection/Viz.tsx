@@ -9,8 +9,8 @@ import cn from 'classnames';
 export default function Viz({ requestMethod, family, isFoundObj }: TVizProps) {
   const defaultPath =
     family === 'lostObjects' ? 'api/Lost-Objects' : 'api/Found-Objects';
-  
-  const [selectedCat, setSelectedCat] = useState<TSnackbarCategorie>('all');
+
+  const [selectedCat, setSelectedCat] = useState<Collections>('all');
   const [path, setPath] = useState<string>(defaultPath);
   const [APIObjects, setAPIObjects] = useState<ObjectItem[]>();
   const [isLoading, setIsLoading] = useState(true);
@@ -94,3 +94,5 @@ export type TVizProps = {
   family: 'lostObjects' | 'foundObjects';
   isFoundObj?: boolean;
 };
+
+export type Collections = TSnackbarCategorie | 'all' | 'all documents';
