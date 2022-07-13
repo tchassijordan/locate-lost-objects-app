@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { PostItem, TSnackbarCategorie } from '../../../components/index';
-import categories from '../../../lib/data';
-import LoadingSVG from '../../../assets/icons/LoadingSVG';
-import useFetch, { TFProps } from '../../../lib/hooks/useFetch';
-import ApiSelector, { TApiProps } from '../../../utils/ApiSelector';
 import cn from 'classnames';
+import { PostItem } from '~/components/index';
+import categories from '~/lib/data';
+import LoadingSVG from '~/assets/icons/LoadingSVG';
+import useFetch, { TFProps } from '~/lib/hooks/useFetch';
+import ApiSelector, { TApiProps } from '~/utils/ApiSelector';
+import { TObjectItem, TVizProps, Collections } from '.';
 
 export default function Viz({ requestMethod, family, isFoundObj }: TVizProps) {
   const defaultPath =
@@ -12,7 +13,7 @@ export default function Viz({ requestMethod, family, isFoundObj }: TVizProps) {
 
   const [selectedCat, setSelectedCat] = useState<Collections>('all');
   const [path, setPath] = useState<string>(defaultPath);
-  const [APIObjects, setAPIObjects] = useState<ObjectItem[]>();
+  const [APIObjects, setAPIObjects] = useState<TObjectItem[]>();
   const [isLoading, setIsLoading] = useState(true);
 
   const params: TFProps = {
@@ -81,18 +82,3 @@ export default function Viz({ requestMethod, family, isFoundObj }: TVizProps) {
     </div>
   );
 }
-
-type ObjectItem = {
-  img: string;
-  date: string;
-  title: string;
-  id: number;
-};
-
-export type TVizProps = {
-  requestMethod: 'GET' | 'POST' | 'PUT' | 'DELETE';
-  family: 'lostObjects' | 'foundObjects';
-  isFoundObj?: boolean;
-};
-
-export type Collections = TSnackbarCategorie | 'all' | 'all documents';

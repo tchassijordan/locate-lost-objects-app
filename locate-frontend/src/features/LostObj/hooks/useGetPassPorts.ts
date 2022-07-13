@@ -1,7 +1,6 @@
-//import { useQuery } from 'react-query';
 import { useState, useEffect } from 'react';
-import useFetch from '../../../../../lib/hooks/useFetch';
-import { TObject } from '../../../../PostObject';
+import useFetch from '~/lib/hooks/useFetch';
+import { TObject } from '~/pages/PostObject';
 
 export default function useGetPassports() {
   const [isLoading, setIsLoading] = useState(true);

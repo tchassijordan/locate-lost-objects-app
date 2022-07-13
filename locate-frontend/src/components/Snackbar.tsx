@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
 import cn from 'classnames';
-import { Collections } from '~/pages/Home/FeaturedObjSection/Viz';
+import { Collections } from '~/features/Viz';
 
 export default function Snackbar({
   categories,

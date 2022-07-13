@@ -1,4 +1,4 @@
-import { Collections } from '~/pages/Home/FeaturedObjSection/Viz';
+import { Collections } from '~/features/Viz';
 
 export default function ApiSelector({ selectedCat, family }: TApiProps) {
   if (family === 'lostObjects') {

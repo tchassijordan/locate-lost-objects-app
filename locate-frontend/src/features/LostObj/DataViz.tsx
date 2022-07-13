@@ -1,9 +1,9 @@
 import React from 'react';
-import Viz from '../Viz';
+import { FeaturedObjViz } from '~/features/Viz';
 
-export default function LostObjects() {
+export default function DataViz() {
   return (
-    <Viz
+    <FeaturedObjViz
       requestMethod='GET'
       family='lostObjects'
     />

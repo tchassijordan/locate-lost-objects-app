@@ -1,9 +1,9 @@
 import React from 'react';
-import Viz from '../Viz';
+import { FeaturedObjViz } from '~/features/Viz';
 
-export default function FoundObjects({isFoundObj}: TProps) {
+export default function FoundObjects({ isFoundObj }: TProps) {
   return (
-    <Viz
+    <FeaturedObjViz
       requestMethod='GET'
       family='foundObjects'
       isFoundObj={isFoundObj}
@@ -13,4 +13,4 @@ export default function FoundObjects({isFoundObj}: TProps) {
 
 type TProps = {
   isFoundObj: boolean;
-}
+};

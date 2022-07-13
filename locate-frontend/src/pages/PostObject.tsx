@@ -24,7 +24,7 @@ export default function PostObject() {
   Dynamic routing isn't functional
   ===================================================
   */
-  
+
   const [lostObjData] = useState<TObject>(object);
   // const [lostObjData, setLostObjData] = useState<TObject>(object);
   //const [isLoading, setISLoading] = useState(true);
