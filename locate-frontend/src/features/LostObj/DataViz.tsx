@@ -4,7 +4,6 @@ import { FeaturedObjViz } from '~/features/Viz';
 export default function DataViz() {
   return (
     <FeaturedObjViz
-      requestMethod='GET'
       family='lostObjects'
     />
   );

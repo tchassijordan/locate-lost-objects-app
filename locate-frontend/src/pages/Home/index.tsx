@@ -82,11 +82,9 @@ export default function Home() {
                   Lost Objects
                 </button>
               </div>
-              {isFoundObj ? (
-                <FoundObjViz isFoundObj={isFoundObj} />
-              ) : (
-                <LostObjViz />
-              )}
+              <div className='w-full'>
+                {isFoundObj ? <FoundObjViz /> : <LostObjViz />}
+              </div>
             </div>
             <PostServiceViz
               showModal={showModal}

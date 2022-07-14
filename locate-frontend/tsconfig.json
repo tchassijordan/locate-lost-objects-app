@@ -25,6 +25,6 @@
       "~/*": ["*"]
     }
   },
-  "include": ["images.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["images.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
   "exclude": ["node_modules", "build"]
 }
