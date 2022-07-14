@@ -3,12 +3,12 @@ import { Transition } from '@headlessui/react';
 import cn from 'classnames';
 import categories from '~/lib/data';
 import { Snackbar, TSnackbarCategorie } from '~/components';
-import { Passport, BirthCertificate, CNI, Others, OtherDocs } from '.';
+import { Passport, BirthCertificate, CNI } from '.';
 import { TServices } from './types';
 
 export default function Viz({ showModal, setShowModal }: TProps) {
   const [selected, setSelected] =
-    useState<TSnackbarCategorie>('Birth Certificate');
+    useState<TSnackbarCategorie>('Birth Certificates');
   const [serviceCategorie, setSeriveCategorie] =
     useState<TServices>('lostObjects');
 
@@ -56,7 +56,7 @@ export default function Viz({ showModal, setShowModal }: TProps) {
           ))}
         </ul>
         <div>
-          {selected === 'Birth Certificate' && (
+          {selected === 'Birth Certificates' && (
             <BirthCertificate
               service={serviceCategorie}
               toggleModal={setShowModal}
@@ -74,8 +74,8 @@ export default function Viz({ showModal, setShowModal }: TProps) {
               toggleModal={setShowModal}
             />
           )}
-          {selected === 'Other Documents' && <OtherDocs />}
-          {selected === 'Non documents' && <Others />}
+          {/* selected === 'Other Documents' && <OtherDocs />}
+          { selected === 'Non documents' && <Others /> */}
         </div>
       </div>
     </Transition>

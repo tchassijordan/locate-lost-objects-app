@@ -3,9 +3,8 @@ import { TSnackbarCategorie } from '../components';
 const categories: TSnackbarCategorie[] = [
   'CNI',
   'Passports',
-  'Birth Certificate',
-  'Other Documents',
-  'Non documents'
+  'Birth Certificates',
+  'Other Docs',
 ];
 
 export default categories;

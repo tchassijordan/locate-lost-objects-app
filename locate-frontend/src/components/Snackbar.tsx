@@ -96,6 +96,5 @@ export type TSnackbarProps = {
 export type TSnackbarCategorie =
   | 'CNI'
   | 'Passports'
-  | 'Birth Certificate'
-  | 'Other Documents'
-  | 'Non documents';
+  | 'Birth Certificates'
+  | 'Other Docs';
