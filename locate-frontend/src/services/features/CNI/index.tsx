@@ -13,7 +13,8 @@ export default function CNI({ service, toggleModal }: TServiceProps) {
       date: '',
       location: '',
       numero_CNI: '',
-      owner: ''
+      owner: '',
+      imgUrl: ''
     },
     validationSchema: Yup.object({
       ...baseSchema,
@@ -38,7 +39,8 @@ export default function CNI({ service, toggleModal }: TServiceProps) {
       isSubmitting={formik.isSubmitting}
       toggleModal={toggleModal}
       handleSubmit={formik.handleSubmit}
-      resetForm={formik.resetForm}>
+      resetForm={formik.resetForm}
+      service={service}>
       <form
         onSubmit={formik.handleSubmit}
         className='space-y-4'>

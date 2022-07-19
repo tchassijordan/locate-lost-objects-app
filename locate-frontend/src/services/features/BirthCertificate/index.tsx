@@ -39,7 +39,8 @@ export default function BirthCertificateViz({
       isSubmitting={formik.isSubmitting}
       toggleModal={toggleModal}
       handleSubmit={formik.handleSubmit}
-      resetForm={formik.resetForm}>
+      resetForm={formik.resetForm}
+      service={service}>
       <form
         onSubmit={formik.handleSubmit}
         className='space-y-4'>
