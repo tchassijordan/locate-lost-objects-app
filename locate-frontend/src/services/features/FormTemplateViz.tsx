@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
-import LoadingSVG from '~/assets/icons/LoadingSVG';
-import { Button } from '~/components';
+import { Button, Loader } from '~/components';
 import { TServices } from '~/services';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { imagesDB } from '~/firebase';
@@ -16,6 +15,8 @@ export default function FormTemplateViz({
   const imgRef = useRef<HTMLInputElement>(null);
   const [downloadImgUrl, setDownloadImgUrl] = useState('');
   const [uploadingStatus, setUploadingStatus] = useState(false);
+
+  console.log('downloadImgUrl', downloadImgUrl);
 
   const imageHandler = ({ service, file }: TImgHandlerProps) => {
     setUploadingStatus(true);
@@ -38,8 +39,6 @@ export default function FormTemplateViz({
     }
   };
 
-  console.log('download Url', downloadImgUrl);
-
   return (
     <div>
       {children}
@@ -61,9 +60,10 @@ export default function FormTemplateViz({
               onChange={uploadTrigger}
             />
           </label>
-          {uploadingStatus ? (
-            <LoadingSVG className='text-primary animate-spin w-[40px] h-[40px] ml-3' />
-          ) : null}
+          <Loader
+            isLoading={uploadingStatus}
+            size={40}
+          />
         </div>
       </div>
       <div className='space-x-8 flex items-center'>
@@ -91,9 +91,10 @@ export default function FormTemplateViz({
             }}
           />
         </div>
-        {isSubmitting ? (
-          <LoadingSVG className='text-primary animate-spin w-[40px] h-[40px]' />
-        ) : null}
+        <Loader
+          isLoading={isSubmitting}
+          size={40}
+        />
       </div>
     </div>
   );
