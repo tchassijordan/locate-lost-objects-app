@@ -10,13 +10,12 @@ export default function FormTemplateViz({
   handleSubmit,
   resetForm,
   children,
-  service
+  service,
+  imageStateHandler
 }: TProps) {
   const imgRef = useRef<HTMLInputElement>(null);
-  const [downloadImgUrl, setDownloadImgUrl] = useState('');
   const [uploadingStatus, setUploadingStatus] = useState(false);
 
-  console.log('downloadImgUrl', downloadImgUrl);
 
   const imageHandler = ({ service, file }: TImgHandlerProps) => {
     setUploadingStatus(true);
@@ -24,8 +23,8 @@ export default function FormTemplateViz({
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on('state_changed', null, null, async () => {
       const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-      setDownloadImgUrl(downloadURL);
       setUploadingStatus(false);
+      imageStateHandler(downloadURL);
     });
   };
 
@@ -107,6 +106,7 @@ type TProps = {
   resetForm: () => void;
   children: React.ReactNode;
   service: TServices;
+  imageStateHandler: (url: string) => void;
 };
 
 type TImgHandlerProps = {

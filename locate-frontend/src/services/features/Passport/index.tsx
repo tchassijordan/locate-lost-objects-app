@@ -15,7 +15,8 @@ export default function Passport({ service, toggleModal }: TServiceProps) {
       town_isssued: '',
       expiration_date: '',
       passport_number: '',
-      passport_owner: ''
+      passport_owner: '',
+      imgUrl: ''
     },
     validationSchema: Yup.object({
       ...baseSchema,
@@ -41,13 +42,18 @@ export default function Passport({ service, toggleModal }: TServiceProps) {
     }
   });
 
+  const imageStateHandler = (url: string) => {
+    formik.setFieldValue('imgUrl', url);
+  };
+
   return (
     <FormTemplateViz
       isSubmitting={formik.isSubmitting}
       toggleModal={toggleModal}
       handleSubmit={formik.handleSubmit}
       resetForm={formik.resetForm}
-      service={service}>
+      service={service}
+      imageStateHandler={imageStateHandler}>
       <form
         onSubmit={formik.handleSubmit}
         className='space-y-4'>
