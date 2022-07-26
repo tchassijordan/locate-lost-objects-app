@@ -16,25 +16,27 @@ export default function Home() {
     <Main>
       <div className='min-h-screen bg-gray-50'>
         <div className='grid grid-cols-1 grid-rows-2'>
-          <div className='row-span-full col-span-full h-96 w-full relative items-center justify-center'>
-            <div className='bg-hero-pattern bg-cover bg-center w-full h-full brightness-50'></div>
-            <div className='top-[45%] left-1/4 absolute flex flex-col justify-center items-center space-y-3'>
-              <div className='space-y-1'>
-                <h1 className='text-4xl text-gray-50 font-bold'>
-                  Have you lost an Object or Artifact?
-                </h1>
-                <p className='text-2xl text-gray-200 block text-center m-0'>
-                  Publish the object right now
-                </p>
+          <div className='row-span-full col-span-full grid grid-cols-1 grid-rows-1 h-96 w-full relative items-center justify-center'>
+            <div className='row-span-full col-span-full bg-hero-pattern bg-cover bg-center w-full h-full brightness-50'></div>
+            <div className='row-span-full col-span-full z-10'>
+              <div className='flex flex-col justify-center items-center space-y-3'>
+                <div className='space-y-1'>
+                  <h1 className='text-4xl text-gray-50 font-bold'>
+                    Have you lost an Object or Artifact?
+                  </h1>
+                  <p className='text-2xl text-gray-200 block text-center m-0'>
+                    Publish the object right now
+                  </p>
+                </div>
+                <Button
+                  link={{
+                    placeholder: 'Register Object',
+                    primary: true,
+                    classes: 'w-fit',
+                    action: () => toggleShowModal(!showModal)
+                  }}
+                />
               </div>
-              <Button
-                link={{
-                  placeholder: 'Register Object',
-                  primary: true,
-                  classes: 'w-fit',
-                  action: () => toggleShowModal(!showModal)
-                }}
-              />
             </div>
           </div>
           <div className='row-start-2 col-span-full -mb-48 w-full self-center'>
@@ -58,7 +60,7 @@ export default function Home() {
             </form>
           </div>
         </div>
-        <div>
+        <div className='px-6 lg:px-0'>
           <div className='max-w-6xl mx-auto py-24 space-y-5'>
             <h1 className='text-2xl sm:text-3xl text-primary font-bold'>
               Featured Publications
