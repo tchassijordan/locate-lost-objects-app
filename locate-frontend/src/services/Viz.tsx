@@ -48,7 +48,7 @@ export default function Viz({ showModal, setShowModal }: TProps) {
               leave='ease-in duration-200'
               leaveFrom='opacity-100 scale-100'
               leaveTo='opacity-0 scale-95'>
-              <Dialog.Panel className='w-full max-w-3xl space-y-6 transform overflow-hidden rounded-2xl bg-gray-100 p-8  text-left align-middle shadow-xl transition-all'>
+              <Dialog.Panel className='w-full max-w-3xl space-y-6 transform overflow-hidden rounded-md bg-gray-100 p-8  text-left align-middle shadow-xl transition-all'>
                 <Snackbar
                   categories={categories}
                   selectedCat={selected}
