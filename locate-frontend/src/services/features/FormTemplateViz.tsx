@@ -16,7 +16,6 @@ export default function FormTemplateViz({
   const imgRef = useRef<HTMLInputElement>(null);
   const [uploadingStatus, setUploadingStatus] = useState(false);
 
-
   const imageHandler = ({ service, file }: TImgHandlerProps) => {
     setUploadingStatus(true);
     const storageRef = ref(imagesDB, `${service}/${file.name}`);
@@ -45,24 +44,31 @@ export default function FormTemplateViz({
         <label className='block text-sm font-medium text-gray-700 mb-2'>
           Photo
         </label>
-        <div className='flex'>
-          <label
-            htmlFor='file-upload'
-            className='bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500'>
-            Change
-            <input
-              type='file'
-              id='file-upload'
-              name='imgUrl'
-              className='hidden'
-              ref={imgRef}
-              onChange={uploadTrigger}
+        <div className='flex flex-col space-y-1'>
+          <div className='flex'>
+            <label
+              htmlFor='file-upload'
+              className='bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500'>
+              Change
+              <input
+                type='file'
+                id='file-upload'
+                name='imgUrl'
+                className='hidden'
+                ref={imgRef}
+                onChange={uploadTrigger}
+              />
+            </label>
+            <Loader
+              isLoading={uploadingStatus}
+              size={40}
             />
-          </label>
-          <Loader
-            isLoading={uploadingStatus}
-            size={40}
-          />
+          </div>
+          {imgRef.current !== null && imgRef.current?.files !== null && (
+            <span className='text-gray-600'>
+              {imgRef.current.files[0]?.name}
+            </span>
+          )}
         </div>
       </div>
       <div className='space-x-8 flex items-center'>
