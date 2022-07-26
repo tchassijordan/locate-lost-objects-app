@@ -19,9 +19,17 @@ export default function Button({ link }: TBtnProps) {
     );
   else style = '';
 
+  const isDisabled = link.disabled ? link.disabled : false;
+
   return (
     <button
-      className={cn(link.classes, style)}
+      className={cn(
+        {
+          'cursor-not-allowed': isDisabled
+        },
+        link.classes,
+        style
+      )}
       onClick={link.action}
       type={link.type}>
       {link.Icon && (
@@ -36,7 +44,7 @@ export default function Button({ link }: TBtnProps) {
           aria-hidden
         />
       )}
-      {link.to ? (
+      {link.to && !isDisabled ? (
         <Link to={link.to}>{link.placeholder}</Link>
       ) : (
         link.placeholder
@@ -58,6 +66,7 @@ export type TBtnLink = {
   to?: string | {};
   text_first?: boolean;
   type?: 'button' | 'submit' | 'reset' | undefined;
+  disabled?: boolean;
   Icon?: (props: any) => JSX.Element;
   action?: () => void;
 };

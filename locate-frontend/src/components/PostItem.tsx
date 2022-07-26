@@ -4,15 +4,15 @@ import pic from '../assets/hero-bg.jpg';
 import { ArrowNarrowRightIcon } from '@heroicons/react/outline';
 
 export default function PostItem({ object }: Props) {
-  const { date, title, id } = object;
+  const { date, title, id, imgUrl } = object;
 
   return (
     <>
-      <div>
+      <div className='h-36'>
         <img
-          src={pic}
-          alt={title}
-          className='w-full object-cover object-center'
+          src={imgUrl?.length == 0 ? pic : imgUrl}
+          alt='post image thumbnail'
+          className='w-full h-full object-cover object-center'
         />
       </div>
       <div className='p-6 space-y-3'>
@@ -31,7 +31,8 @@ export default function PostItem({ object }: Props) {
             to: {
               pathname: `post_object/${id}`,
               state: { object }
-            }
+            },
+            disabled: true
           }}
         />
       </div>
@@ -45,11 +46,12 @@ interface Props {
 }
 
 type TPostItem = {
-  img?: string;
+  imgUrl?: string;
   date?: string;
   title?: string;
   icon?: JSX.Element;
   to?: '';
   apiPath?: '';
-  id?: number
+  id?: number;
+  children?: React.ReactNode;
 };

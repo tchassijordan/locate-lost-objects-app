@@ -15,7 +15,8 @@ export default function BirthCertificateViz({
       description: '',
       date: '',
       location: '',
-      town_hall: ''
+      town_hall: '',
+      imgUrl: ''
     },
     validationSchema: Yup.object({
       ...baseSchema,
@@ -34,12 +35,18 @@ export default function BirthCertificateViz({
     }
   });
 
+  const imageStateHandler = (url: string) => {
+    formik.setFieldValue('imgUrl', url);
+  };
+
   return (
     <FormTemplateViz
       isSubmitting={formik.isSubmitting}
       toggleModal={toggleModal}
       handleSubmit={formik.handleSubmit}
-      resetForm={formik.resetForm}>
+      resetForm={formik.resetForm}
+      service={service}
+      imageStateHandler={imageStateHandler}>
       <form
         onSubmit={formik.handleSubmit}
         className='space-y-4'>
