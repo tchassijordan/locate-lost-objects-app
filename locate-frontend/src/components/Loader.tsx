@@ -5,7 +5,7 @@ export default function Loader({ isLoading, size }: IProps) {
   if (!isLoading) return null;
   return (
     <LoadingSVG
-      className={`text-primary animate-spin w-[${size}] h-[${size}] ml-3`}
+      className={`text-primary animate-spin w-[${size}px] h-[${size}px] ml-3`}
     />
   );
 }
