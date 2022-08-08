@@ -13,5 +13,8 @@ module.exports = {
       }
     }
   },
-  plugins: [require('@tailwindcss/forms')]
+  plugins: [
+    require('prettier-plugin-tailwindcss'),
+    require('@tailwindcss/forms')
+  ]
 };
