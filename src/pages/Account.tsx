@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserAuth } from '../utils/AuthContext';
+import { UserAuth } from '../lib/Auth/AuthContext.js';
 import { useNavigate } from 'react-router-dom';
 
 export default function Account() {
@@ -17,13 +17,13 @@ export default function Account() {
   };
 
   return (
-    <div className='max-w-[600px] mx-auto my-16 p-4'>
-      <h1 className='text-2xl font-bold py-4'> Account</h1>
+    <div className='mx-auto my-16 max-w-[600px] p-4'>
+      <h1 className='py-4 text-2xl font-bold'> Account</h1>
       <p>User Email: {user && user.email}</p>
 
       <button
         onClick={handleLogout}
-        className='border px-6 py-2 my-4'>
+        className='my-4 border px-6 py-2'>
         Logout
       </button>
     </div>

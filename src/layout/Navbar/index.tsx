@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { UserAuth } from '../../utils/AuthContext';
+import { UserAuth } from '../../lib/Auth/AuthContext.js';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import ManPNG from '../../assets/man.png';
