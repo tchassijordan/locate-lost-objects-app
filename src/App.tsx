@@ -1,10 +1,7 @@
 import React from 'react';
 import Router from './Routes/Router';
-import { AuthContextProvider } from './utils/AuthContext';
-import {
-  QueryClient,
-  QueryClientProvider
-} from 'react-query';
+import { AuthContextProvider } from './lib/Auth/AuthContext.js';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const queryClient = new QueryClient();
 

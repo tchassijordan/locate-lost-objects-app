@@ -1,11 +1,11 @@
 import React from 'react';
 import Navbar from './Navbar/index';
 import Footer from './Footer/index';
-import { UserAuth } from '../utils/AuthContext';
+import { UserAuth } from '../lib/Auth/AuthContext.js';
 
 export default function Main({ children }: Props) {
   const headerNavigation = [
-    { name: 'Home', to: '/'},
+    { name: 'Home', to: '/' }
     // { name: 'Lost Objects', to: '/lost_objects' },
     // { name: 'Find Objects', to: '/found_object' },
     // { name: 'Team', to: '/team' }
@@ -32,7 +32,7 @@ export default function Main({ children }: Props) {
   const { user } = UserAuth();
 
   return (
-    <div className='flex flex-col justify-between min-h-screen'>
+    <div className='flex min-h-screen flex-col justify-between'>
       <Navbar
         user={user}
         links={headerNavigation}

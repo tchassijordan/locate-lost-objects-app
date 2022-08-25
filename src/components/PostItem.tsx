@@ -2,9 +2,11 @@ import React from 'react';
 import Button from './Button';
 import pic from '../assets/hero-bg.jpg';
 import { ArrowNarrowRightIcon } from '@heroicons/react/outline';
+import { TProps } from '~/features/Viz/hooks/getDocumentsData';
+import { Link } from 'react-router-dom';
 
 export default function PostItem({ object }: Props) {
-  const { date, title, id, imgUrl } = object;
+  const { date, title, id, imgUrl, apiPath } = object;
 
   return (
     <>
@@ -12,29 +14,30 @@ export default function PostItem({ object }: Props) {
         <img
           src={imgUrl?.length == 0 ? pic : imgUrl}
           alt='post image thumbnail'
-          className='w-full h-full object-cover object-center'
+          className='h-full w-full object-cover object-center'
         />
       </div>
-      <div className='p-6 space-y-3'>
-        <div className='space-y-1 m-0'>
+      <div className='space-y-3 p-6'>
+        <div className='m-0 space-y-1'>
           <h2 className='text-gray-900'>{title}</h2>
-          <p className='text-xs sm:text-sm text-gray-600'>{date}</p>
+          <p className='text-xs text-gray-600 sm:text-sm'>{date}</p>
         </div>
-        {/* dynamic routing isn't functioning */}
-        <Button
-          link={{
-            placeholder: 'Explore',
-            primary: true,
-            Icon: ArrowNarrowRightIcon,
-            classes: 'w-32 flex justify-center items-center',
-            text_first: true,
-            to: {
-              pathname: `post_object/${id}`,
-              state: { object }
-            },
-            disabled: true
-          }}
-        />
+        <Link
+          to={`post_object/${id}`}
+          state={{
+            apiPath,
+            id: id
+          }}>
+          <Button
+            link={{
+              placeholder: 'Explore',
+              primary: true,
+              Icon: ArrowNarrowRightIcon,
+              classes: 'w-32 flex justify-center items-center',
+              text_first: true
+            }}
+          />
+        </Link>
       </div>
     </>
   );
@@ -51,7 +54,7 @@ type TPostItem = {
   title?: string;
   icon?: JSX.Element;
   to?: '';
-  apiPath?: '';
-  id?: number;
+  apiPath?: TProps;
+  id?: string;
   children?: React.ReactNode;
 };

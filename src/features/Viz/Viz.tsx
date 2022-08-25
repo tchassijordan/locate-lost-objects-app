@@ -13,13 +13,13 @@ export default function Viz({ family }: TFamily) {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<{ [k: string]: string }[]>([]);
 
+  const { documentType, documentCollection } = textConverter(selectedCategorie);
+
   async function Fetcher() {
-    let bucket = undefined;
-    if (selectedCategorie === 'CNI') bucket = selectedCategorie;
     const result = await getData({
       serviceFamily: family,
-      subCollection: textConverter(selectedCategorie),
-      bucket: bucket
+      documentCollection,
+      documentType
     });
     setIsLoading(false);
     result && setData(result);
@@ -31,12 +31,12 @@ export default function Viz({ family }: TFamily) {
 
   return (
     <div className='space-y-6'>
-      <ul className='flex space-x-2 justify-start w-full'>
+      <ul className='flex w-full justify-start space-x-2'>
         {categories.map((categorie, index) => (
           <li
             key={index}
             className={cn(
-              'capitalize rounded-full px-3 py-1 cursor-pointer text-sm',
+              'cursor-pointer rounded-full px-3 py-1 text-sm capitalize',
               { 'bg-orange-600 text-gray-50': categorie === selectedCategorie },
               {
                 'bg-gray-200 text-gray-700 hover:bg-orange-200':
@@ -58,13 +58,21 @@ export default function Viz({ family }: TFamily) {
               <div
                 key={index}
                 className='bg-gray-200 shadow-md'>
-                <PostItem object={object} />
+                <PostItem
+                  object={Object.assign({}, object, {
+                    apiPath: {
+                      serviceFamily: family,
+                      documentType,
+                      documentCollection
+                    }
+                  })}
+                />
               </div>
             ))}
           </div>
         ) : (
-          <div className='w-full h-full flex items-center justify-center'>
-            <LoadingSVG className='text-primary animate-spin w-[40px] h-[40px] mx-auto' />
+          <div className='flex h-full w-full items-center justify-center'>
+            <LoadingSVG className='mx-auto h-[40px] w-[40px] animate-spin text-primary' />
           </div>
         )}
       </div>

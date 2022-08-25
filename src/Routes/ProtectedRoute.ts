@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserAuth } from '../utils/AuthContext';
+import { UserAuth } from '../lib/Auth/AuthContext.js';
 
 function ProtectedRoute({ children }: TProps): ReactElement {
   const { user } = UserAuth();

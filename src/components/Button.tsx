@@ -63,7 +63,7 @@ export type TBtnLink = {
   classes?: string;
   primary?: boolean;
   secondary?: boolean;
-  to?: string | {};
+  to?: string;
   text_first?: boolean;
   type?: 'button' | 'submit' | 'reset' | undefined;
   disabled?: boolean;
