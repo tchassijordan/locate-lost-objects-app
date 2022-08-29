@@ -1,33 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import cn from 'classnames';
 import { PostItem, TSnackbarCategorie } from '~/components';
 import categories from '~/lib/data';
 import LoadingSVG from '~/assets/icons/LoadingSVG';
-//use the text converter to transform the selected snack bar option into api format type collection name and optimize code base
 import { textConverter } from '~/utils';
-import { TFamily, getData } from '.';
+import { TFamily, useGetDocumentsCollection } from '.';
 
 export default function Viz({ family }: TFamily) {
   const [selectedCategorie, setSelectedCategorie] =
     useState<TSnackbarCategorie>('Birth Certificates');
-  const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<{ [k: string]: string }[]>([]);
 
   const { documentType, documentCollection } = textConverter(selectedCategorie);
 
-  async function Fetcher() {
-    const result = await getData({
-      serviceFamily: family,
-      documentCollection,
-      documentType
-    });
-    setIsLoading(false);
-    result && setData(result);
-  }
+  const result = useGetDocumentsCollection({
+    serviceFamily: family,
+    documentCollection,
+    documentType
+  });
 
-  useEffect(() => {
-    Fetcher();
-  }, [selectedCategorie]);
+  const data = result?.data || [];
+  const isLoading = result?.isLoading || false;
 
   return (
     <div className='space-y-6'>
@@ -44,7 +36,6 @@ export default function Viz({ family }: TFamily) {
               }
             )}
             onClick={() => {
-              setIsLoading(true);
               setSelectedCategorie(categorie);
             }}>
             {categorie}

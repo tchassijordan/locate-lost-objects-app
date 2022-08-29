@@ -4,7 +4,7 @@ import defaultPostImg from '../assets/hero-bg.jpg';
 import Main from '../layout/main';
 import LoadingSVG from '../assets/icons/LoadingSVG';
 import { getDocumentData } from '~/utils';
-import { TProps } from '~/features/Viz/hooks/getDocumentsData';
+import { TProps } from '~/features/Viz/hooks/useGetDocumentsCollection';
 import { TObject } from '~/lib/types';
 
 interface ILocation {

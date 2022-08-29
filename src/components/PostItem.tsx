@@ -2,7 +2,7 @@ import React from 'react';
 import Button from './Button';
 import pic from '../assets/hero-bg.jpg';
 import { ArrowNarrowRightIcon } from '@heroicons/react/outline';
-import { TProps } from '~/features/Viz/hooks/getDocumentsData';
+import { TProps } from '~/features/Viz/hooks/useGetDocumentsCollection';
 import { Link } from 'react-router-dom';
 
 export default function PostItem({ object }: Props) {

@@ -3,7 +3,13 @@ import Router from './Routes/Router';
 import { AuthContextProvider } from './lib/Auth/AuthContext.js';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false
+    }
+  }
+});
 
 function App() {
   return (
