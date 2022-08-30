@@ -4,13 +4,13 @@ import defaultPostImg from '../assets/hero-bg.jpg';
 import Main from '../layout/main';
 import LoadingSVG from '../assets/icons/LoadingSVG';
 import { getDocumentData } from '~/utils';
-import { TProps } from '~/features/Viz/hooks/useGetDocumentsCollection';
+import { TGetCollectionsProps } from '~/features/Viz/hooks/useGetDocumentsCollection';
 import { TObject } from '~/lib/types';
 
 interface ILocation {
   pathname: string;
   state: {
-    apiPath: TProps;
+    itemMetaData: TGetCollectionsProps;
     id: string;
   };
 }
@@ -22,7 +22,7 @@ export default function PostObject() {
 
   const fetcher = async () => {
     if (loading) {
-      const url = `/${location.state.apiPath.serviceFamily}/Documents/${location.state.apiPath.documentType}/${location.state.apiPath.documentCollection}Collection/${location.state.id}`;
+      const url = `/${location.state.itemMetaData.serviceType}/Documents/${location.state.itemMetaData.documentType}/${location.state.itemMetaData.documentCollection}Collection/${location.state.id}`;
       const data = await getDocumentData({ url });
       if (typeof data === null) return;
       setData(data as TObject);

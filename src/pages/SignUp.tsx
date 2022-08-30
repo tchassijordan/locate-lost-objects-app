@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import logo from '../assets/logo&img/logo.png';
 import logoIcon from '../assets/logo&img/logo2.png';
-import { Input, Button } from '../components/index';
+import { InputField, Button } from '../components/index';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { BsFacebook, BsGoogle, BsTwitter } from 'react-icons/bs';
 import { UserAuth } from '../lib/Auth/AuthContext.js';
@@ -118,7 +118,7 @@ export default function SignUp() {
               <div className='bg-white px-4 py-5 sm:p-6'>
                 <div className='grid grid-cols-6 gap-6'>
                   <div className='col-span-6 sm:col-span-3'>
-                    <Input
+                    <InputField
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.first_name}
@@ -128,7 +128,7 @@ export default function SignUp() {
                   </div>
 
                   <div className='col-span-6 sm:col-span-3'>
-                    <Input
+                    <InputField
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.last_name}
@@ -138,7 +138,7 @@ export default function SignUp() {
                   </div>
 
                   <div className='col-span-6'>
-                    <Input
+                    <InputField
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.email}
@@ -148,7 +148,7 @@ export default function SignUp() {
                   </div>
 
                   <div className='col-span-6'>
-                    <Input
+                    <InputField
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
@@ -179,7 +179,7 @@ export default function SignUp() {
                   </div>
 
                   <div className='col-span-6'>
-                    <Input
+                    <InputField
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.street_address}
@@ -189,7 +189,7 @@ export default function SignUp() {
                   </div>
 
                   <div className='col-span-6 sm:col-span-3'>
-                    <Input
+                    <InputField
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.city}
@@ -199,7 +199,7 @@ export default function SignUp() {
                   </div>
 
                   <div className='col-span-6 sm:col-span-3'>
-                    <Input
+                    <InputField
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.region}

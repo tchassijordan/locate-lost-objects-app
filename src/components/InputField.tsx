@@ -1,14 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export default function Input({ onChange, onBlur, value, name, type }: Prop) {
+export default function InputField({
+  onChange,
+  onBlur,
+  value,
+  name,
+  type
+}: Prop) {
   const labelName = name.replaceAll('_', ' ');
   return (
     <div>
       <label
         htmlFor={name}
-        className='block text-sm font-medium text-gray-700 capitalize'
-      >
+        className='block text-sm font-medium capitalize text-gray-700'>
         {labelName}
       </label>
 
@@ -17,7 +22,9 @@ export default function Input({ onChange, onBlur, value, name, type }: Prop) {
         name={name}
         id={name}
         autoComplete={name}
-        className={classNames('mt-1 focus:ring-orange-500 focus:border-orange-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md')}
+        className={classNames(
+          'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm'
+        )}
         onChange={onChange}
         onBlur={onBlur}
         value={value}
@@ -27,9 +34,9 @@ export default function Input({ onChange, onBlur, value, name, type }: Prop) {
 }
 
 type Prop = {
-  onChange: any,
-  onBlur: any,
-  name: string,
-  type: string,
-  value: string,  
-}
+  onChange: any;
+  onBlur: any;
+  name: string;
+  type: string;
+  value: string;
+};

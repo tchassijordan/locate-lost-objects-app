@@ -3,19 +3,19 @@ import { getDocs, collection } from 'firebase/firestore';
 import { TServices } from '~/services/types';
 import { useQuery } from 'react-query';
 
-export default function getDocumentsCollection({
-  serviceFamily,
+export default function useGetDocumentsCollection({
+  serviceType,
   documentCollection,
   documentType
-}: TProps): TResult | undefined {
+}: TGetCollectionsProps): TResult | undefined {
   const { data, isLoading, isError } = useQuery<Record<string, string>[]>(
-    [serviceFamily, documentCollection, documentType],
+    [serviceType, documentCollection, documentType],
     async () => {
       const result: Record<string, string>[] = [];
       const querySnapshot = await getDocs(
         collection(
           firestoreDB,
-          `objects/${serviceFamily}/Documents/${documentType}/${documentCollection}Collection`
+          `objects/${serviceType}/Documents/${documentType}/${documentCollection}Collection`
         )
       );
       querySnapshot.forEach((doc) =>
@@ -27,8 +27,8 @@ export default function getDocumentsCollection({
   return { data, isLoading, isError };
 }
 
-export type TProps = {
-  serviceFamily: TServices;
+export type TGetCollectionsProps = {
+  serviceType: TServices;
   documentCollection: string;
   documentType: string;
 };

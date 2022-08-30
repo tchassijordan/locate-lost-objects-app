@@ -2,9 +2,5 @@ import React from 'react';
 import { FeaturedObjViz } from '~/features/Viz';
 
 export default function FoundObjects() {
-  return (
-    <FeaturedObjViz
-      family='foundObjects'
-    />
-  );
+  return <FeaturedObjViz serviceType='foundObjects' />;
 }

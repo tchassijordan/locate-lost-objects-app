@@ -1,7 +1,7 @@
 export { default as Button } from './Button';
-export { default as Input } from './Input';
-export { default as PostItem } from './PostItem';
+export { default as InputField } from './InputField';
+export { default as PostCard } from './PostCard';
 export { default as Snackbar } from './Snackbar';
-export type { TSnackbarCategorie } from './Snackbar';
+export type { TDocumentTypes } from './Snackbar';
 export type { TBtnLink } from './Button';
 export { default as Loader } from './Loader';

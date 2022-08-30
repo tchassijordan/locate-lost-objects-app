@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import logo from '../assets/logo&img/logo.png';
 import { BsFacebook, BsGoogle, BsTwitter } from 'react-icons/bs';
-import { Input, Button } from '../components/index';
+import { InputField, Button } from '../components/index';
 import { UserAuth } from '../lib/Auth/AuthContext.js';
 
 export default function SignIn() {
@@ -83,7 +83,7 @@ export default function SignIn() {
               />
               <div className='space-y-6'>
                 <div>
-                  <Input
+                  <InputField
                     name='email'
                     type='email'
                     onChange={formik.handleChange}
@@ -98,7 +98,7 @@ export default function SignIn() {
                 </div>
 
                 <div>
-                  <Input
+                  <InputField
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password}

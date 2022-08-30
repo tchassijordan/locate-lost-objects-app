@@ -1,21 +1,18 @@
 import React, { useState, Fragment } from 'react';
 import { Transition, Dialog } from '@headlessui/react';
 import cn from 'classnames';
-import categories from '~/lib/data';
-import { Snackbar, TSnackbarCategorie } from '~/components';
-import { Passport, BirthCertificate, CNI } from '.';
+import documentTypes from '~/lib/data';
+import { Snackbar, TDocumentTypes } from '~/components';
+import { Passport, BirthCertificate, IdCard } from '.';
 import { TServices } from './types';
 
-export default function Viz({ showModal, setShowModal }: TProps) {
-  const [selected, setSelected] =
-    useState<TSnackbarCategorie>('Birth Certificates');
-  const [serviceCategorie, setSeriveCategorie] =
+export default function ServiceViz({ showModal, setShowModal }: TProps) {
+  const [activeDocumentType, setActiveDocumentType] =
+    useState<TDocumentTypes>('Birth Certificates');
+  const [activeServiceType, setServiceType] =
     useState<TServices>('lostObjects');
 
-  const serviceCategorieArray: TPublishCategories[] = [
-    'lostObjects',
-    'foundObjects'
-  ];
+  const serviceTypes: TPublishCategories[] = ['lostObjects', 'foundObjects'];
 
   return (
     <Transition
@@ -26,7 +23,7 @@ export default function Viz({ showModal, setShowModal }: TProps) {
       <Dialog
         open={showModal}
         onClose={setShowModal}
-        className='fixed w-screen h-screen grid items-center justify-center inset-0 z-20'>
+        className='fixed inset-0 z-20 grid h-screen w-screen items-center justify-center'>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
@@ -48,51 +45,51 @@ export default function Viz({ showModal, setShowModal }: TProps) {
               leave='ease-in duration-200'
               leaveFrom='opacity-100 scale-100'
               leaveTo='opacity-0 scale-95'>
-              <Dialog.Panel className='w-full max-w-3xl space-y-6 transform overflow-hidden rounded-md bg-gray-100 p-8  text-left align-middle shadow-xl transition-all'>
+              <Dialog.Panel className='w-full max-w-3xl transform space-y-6 overflow-hidden rounded-md bg-gray-100 p-8  text-left align-middle shadow-xl transition-all'>
                 <Snackbar
-                  categories={categories}
-                  selectedCat={selected}
-                  selectedCatHandler={(prop) => setSelected(prop)}
+                  documentTypes={documentTypes}
+                  activeDocumentType={activeDocumentType}
+                  onTypeChange={(prop) => setActiveDocumentType(prop)}
                 />
-                <ul className='flex space-x-2 justify-start w-full'>
-                  {serviceCategorieArray.map((categorie, index) => (
+                <ul className='flex w-full justify-start space-x-2'>
+                  {serviceTypes.map((service, index) => (
                     <li
                       key={index}
                       className={cn(
-                        'capitalize rounded-full px-3 py-1 cursor-pointer text-sm',
+                        'cursor-pointer rounded-full px-3 py-1 text-sm capitalize',
                         {
                           'bg-orange-600 text-gray-50':
-                            categorie === serviceCategorie
+                            service === activeServiceType
                         },
                         {
                           'bg-gray-200 text-gray-700 hover:bg-orange-200':
-                            categorie !== serviceCategorie
+                            service !== activeServiceType
                         }
                       )}
                       onClick={() => {
-                        setSeriveCategorie(categorie);
+                        setServiceType(service);
                       }}>
-                      {categorie}
+                      {service}
                     </li>
                   ))}
                 </ul>
                 <div>
-                  {selected === 'Birth Certificates' && (
+                  {activeDocumentType === 'Birth Certificates' && (
                     <BirthCertificate
-                      service={serviceCategorie}
-                      toggleModal={setShowModal}
+                      service={activeServiceType}
+                      onModalToggle={setShowModal}
                     />
                   )}
-                  {selected === 'Passports' && (
+                  {activeDocumentType === 'Passports' && (
                     <Passport
-                      service={serviceCategorie}
-                      toggleModal={setShowModal}
+                      service={activeServiceType}
+                      onModalToggle={setShowModal}
                     />
                   )}
-                  {selected === 'CNI' && (
-                    <CNI
-                      service={serviceCategorie}
-                      toggleModal={setShowModal}
+                  {activeDocumentType === 'CNI' && (
+                    <IdCard
+                      service={activeServiceType}
+                      onModalToggle={setShowModal}
                     />
                   )}
                   {/* selected === 'Other Documents' && <OtherDocs />}

@@ -2,11 +2,11 @@ import React from 'react';
 import Button from './Button';
 import pic from '../assets/hero-bg.jpg';
 import { ArrowNarrowRightIcon } from '@heroicons/react/outline';
-import { TProps } from '~/features/Viz/hooks/useGetDocumentsCollection';
+import { TGetCollectionsProps } from '~/features/Viz/hooks/useGetDocumentsCollection';
 import { Link } from 'react-router-dom';
 
-export default function PostItem({ object }: Props) {
-  const { date, title, id, imgUrl, apiPath } = object;
+export default function PostCard({ data }: TPostCardProps) {
+  const { date, title, id, imgUrl, itemMetaData } = data;
 
   return (
     <>
@@ -25,7 +25,7 @@ export default function PostItem({ object }: Props) {
         <Link
           to={`post_object/${id}`}
           state={{
-            apiPath,
+            itemMetaData,
             id: id
           }}>
           <Button
@@ -43,18 +43,14 @@ export default function PostItem({ object }: Props) {
   );
 }
 
-interface Props {
-  object: TPostItem;
-  id?: number;
+interface TPostCardProps {
+  data: TPostCard;
 }
 
-type TPostItem = {
+type TPostCard = {
   imgUrl?: string;
   date?: string;
   title?: string;
-  icon?: JSX.Element;
-  to?: '';
-  apiPath?: TProps;
+  itemMetaData?: TGetCollectionsProps;
   id?: string;
-  children?: React.ReactNode;
 };
