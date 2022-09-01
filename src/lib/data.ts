@@ -1,10 +1,10 @@
-import { TSnackbarCategorie } from '../components';
+import { TDocumentTypes } from '../components';
 
-const categories: TSnackbarCategorie[] = [
+const documentTypes: TDocumentTypes[] = [
   'CNI',
   'Passports',
   'Birth Certificates',
-  'Other Docs',
+  'Other Docs'
 ];
 
-export default categories;
+export default documentTypes;

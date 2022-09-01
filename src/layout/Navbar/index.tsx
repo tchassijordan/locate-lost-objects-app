@@ -12,31 +12,17 @@ import { Button } from '../../components';
 export default function Navbar({ links, user }: TProps) {
   const { signOut } = UserAuth();
 
-  const signInBtnProps = {
-    placeholder: 'Sign in',
-    classes: 'text-gray-700 max-w-fit',
-    secondary: true,
-    to: 'sign_in'
-  };
-
-  const signUpBtnProps = {
-    placeholder: 'Sign up',
-    classes: 'hidden sm:block max-w-fit',
-    primary: true,
-    to: 'sign_up'
-  };
-
   return (
     <Disclosure
       as='nav'
-      className='bg-slate-300 fixed sm:absolute w-screen z-20'>
+      className='fixed z-20 w-screen bg-slate-300 sm:absolute'>
       {({ open }) => (
         <>
-          <div className='max-w-6xl mx-auto px-2 sm:px-6 lg:px-8'>
-            <div className='relative flex items-center justify-between h-16 py-2'>
+          <div className='mx-auto max-w-6xl px-2 sm:px-6 lg:px-8'>
+            <div className='relative flex h-16 items-center justify-between py-2'>
               <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
                 {/* Mobile menu button*/}
-                <Disclosure.Button className='inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-white hover:bg-primary focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
+                <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-gray-500 hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
                   <span className='sr-only'>Open main menu</span>
                   {open ? (
                     <XIcon
@@ -51,21 +37,23 @@ export default function Navbar({ links, user }: TProps) {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className='flex-1 flex items-center justify-center sm:items-center sm:justify-start'>
-                <div className='flex-shrink-0 flex items-baseline'>
+              <div className='flex flex-1 items-center justify-center sm:items-center sm:justify-start'>
+                <div className='flex flex-shrink-0 items-baseline'>
                   <img
                     className='block h-8 w-auto lg:h-8'
                     src={logo}
                     alt='Locate logo'
                   />
                 </div>
-                <nav className='hidden sm:block sm:ml-6 lg:ml-12'>
-                  <ul className='list-none flex justify-between w-full space-x-8'>
+                <nav className='hidden sm:ml-6 sm:block lg:ml-12'>
+                  <ul className='flex w-full list-none justify-between space-x-8'>
                     {links.map((link, index) => (
                       <li
                         key={index}
                         className='group'>
-                        <Link to={link.to} className='text-gray-700 group-hover:cursor-pointer group-hover:text-primary border-b border-transparent group-hover:pb-[1px] group-hover:border-primary transition-all'>
+                        <Link
+                          to={link.to}
+                          className='border-b border-transparent text-gray-700 transition-all group-hover:cursor-pointer group-hover:border-primary group-hover:pb-[1px] group-hover:text-primary'>
                           {link.name}
                         </Link>
                       </li>
@@ -78,12 +66,12 @@ export default function Navbar({ links, user }: TProps) {
                 {user !== null ? (
                   <Menu
                     as='div'
-                    className='ml-3 relative'>
+                    className='relative ml-3'>
                     <div>
-                      <Menu.Button className='bg-primary max-w-[40px] max-h-[40px] flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white'>
+                      <Menu.Button className='flex max-h-[40px] max-w-[40px] rounded-full bg-primary text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary'>
                         <span className='sr-only'>Open user menu</span>
                         <img
-                          className='h-8 lg:h-8 w-full rounded-full'
+                          className='h-8 w-full rounded-full lg:h-8'
                           src={ManPNG}
                           alt='profile'
                         />
@@ -97,11 +85,11 @@ export default function Navbar({ links, user }: TProps) {
                       leave='transition ease-in duration-75'
                       leaveFrom='transform opacity-100 scale-100'
                       leaveTo='transform opacity-0 scale-95'>
-                      <Menu.Items className='origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none group group-hover:cursor-pointer'>
+                      <Menu.Items className='group absolute right-0 mt-2 w-32 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none group-hover:cursor-pointer'>
                         <Menu.Item>
                           <p
                             className={
-                              'text-sm sm:text-xs lg:text-sm px-4 py-2 text-gray-700 group-hover:cursor-pointer'
+                              'px-4 py-2 text-sm text-gray-700 group-hover:cursor-pointer sm:text-xs lg:text-sm'
                             }>
                             {`${user?.first_name} ${user?.last_name}`}
                           </p>
@@ -110,8 +98,8 @@ export default function Navbar({ links, user }: TProps) {
                           {({ active }) => (
                             <p
                               className={cn(
-                                active ? 'underline cursor-pointer' : '',
-                                'px-4 py-2 text-sm sm:text-xs lg:text-sm text-gray-700'
+                                active ? 'cursor-pointer underline' : '',
+                                'px-4 py-2 text-sm text-gray-700 sm:text-xs lg:text-sm'
                               )}
                               role='button'
                               onClick={signOut}>
@@ -123,9 +111,23 @@ export default function Navbar({ links, user }: TProps) {
                     </Transition>
                   </Menu>
                 ) : (
-                  <div className='space-x-4 flex w-48 justify-end'>
-                    <Button link={signInBtnProps} />
-                    <Button link={signUpBtnProps} />
+                  <div className='flex w-48 justify-end space-x-4'>
+                    <Button
+                      link={{
+                        placeholder: 'Sign in',
+                        classes: 'text-gray-700 max-w-fit',
+                        secondary: true,
+                        to: 'sign_in'
+                      }}
+                    />
+                    <Button
+                      link={{
+                        placeholder: 'Sign up',
+                        classes: 'hidden sm:block max-w-fit',
+                        primary: true,
+                        to: 'sign_up'
+                      }}
+                    />
                   </div>
                 )}
               </div>
@@ -142,13 +144,15 @@ export default function Navbar({ links, user }: TProps) {
             leaveFrom='transform opacity-100 scale-100'
             leaveTo='transform opacity-0 scale-95'>
             <Disclosure.Panel className='sm:hidden'>
-              <nav className='sm:hidden px-2 pt-3 pb-3 h-[calc(100vh_-_theme(height.20))] w-full fixed bg-slate-300'>
-                <ul className='list-none flex flex-col justify-center items-center space-y-5'>
+              <nav className='fixed h-[calc(100vh_-_theme(height.20))] w-full bg-slate-300 px-2 pt-3 pb-3 sm:hidden'>
+                <ul className='flex list-none flex-col items-center justify-center space-y-5'>
                   {links.map((link, index) => (
                     <li
                       key={index}
                       className='group'>
-                      <Link to={link.to} className='text-gray-700 group-hover:cursor-pointer group-hover:text-primary group-hover:border-b group-hover:pb-1 group-hover:border-primary'>
+                      <Link
+                        to={link.to}
+                        className='text-gray-700 group-hover:cursor-pointer group-hover:border-b group-hover:border-primary group-hover:pb-1 group-hover:text-primary'>
                         {link.name}
                       </Link>
                     </li>

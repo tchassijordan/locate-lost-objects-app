@@ -1,67 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import cn from 'classnames';
-import { PostItem, TSnackbarCategorie } from '~/components';
-import categories from '~/lib/data';
+import { PostCard, TDocumentTypes } from '~/components';
+import documentTypes from '~/lib/data';
 import LoadingSVG from '~/assets/icons/LoadingSVG';
-//use the text converter to transform the selected snack bar option into api format type collection name and optimize code base
 import { textConverter } from '~/utils';
-import { TFamily, getData } from '.';
+import { TServiceType, useGetDocumentsCollection } from '.';
 
-export default function Viz({ family }: TFamily) {
-  const [selectedCategorie, setSelectedCategorie] =
-    useState<TSnackbarCategorie>('Birth Certificates');
-  const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<{ [k: string]: string }[]>([]);
+export default function Viz({ serviceType }: TServiceType) {
+  const [activeDocumentType, setActiveDocumentType] =
+    useState<TDocumentTypes>('Birth Certificates');
 
-  const { documentType, documentCollection } = textConverter(selectedCategorie);
+  const { documentType, documentCollection } =
+    textConverter(activeDocumentType);
 
-  async function Fetcher() {
-    const result = await getData({
-      serviceFamily: family,
-      documentCollection,
-      documentType
-    });
-    setIsLoading(false);
-    result && setData(result);
-  }
+  const result = useGetDocumentsCollection({
+    serviceType: serviceType,
+    documentCollection,
+    documentType
+  });
 
-  useEffect(() => {
-    Fetcher();
-  }, [selectedCategorie]);
+  const data = result?.data || [];
+  const isLoading = result?.isLoading || false;
 
   return (
     <div className='space-y-6'>
       <ul className='flex w-full justify-start space-x-2'>
-        {categories.map((categorie, index) => (
+        {documentTypes.map((type, index) => (
           <li
             key={index}
             className={cn(
               'cursor-pointer rounded-full px-3 py-1 text-sm capitalize',
-              { 'bg-orange-600 text-gray-50': categorie === selectedCategorie },
+              {
+                'bg-orange-600 text-gray-50': type === activeDocumentType
+              },
               {
                 'bg-gray-200 text-gray-700 hover:bg-orange-200':
-                  categorie !== selectedCategorie
+                  type !== activeDocumentType
               }
             )}
             onClick={() => {
-              setIsLoading(true);
-              setSelectedCategorie(categorie);
+              setActiveDocumentType(type);
             }}>
-            {categorie}
+            {type}
           </li>
         ))}
       </ul>
       <div>
         {data.length != 0 && !isLoading ? (
           <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 md:gap-7 lg:grid-cols-4 lg:gap-10'>
-            {data.map((object, index) => (
+            {data.map((item, index) => (
               <div
                 key={index}
                 className='bg-gray-200 shadow-md'>
-                <PostItem
-                  object={Object.assign({}, object, {
-                    apiPath: {
-                      serviceFamily: family,
+                <PostCard
+                  data={Object.assign({}, item, {
+                    itemMetaData: {
+                      serviceType: serviceType,
                       documentType,
                       documentCollection
                     }

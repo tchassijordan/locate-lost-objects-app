@@ -41,14 +41,14 @@ export default function FormTemplateViz({
     <div>
       {children}
       <div className='col-span-6 my-3'>
-        <label className='block text-sm font-medium text-gray-700 mb-2'>
+        <label className='mb-2 block text-sm font-medium text-gray-700'>
           Photo
         </label>
         <div className='flex flex-col space-y-1'>
           <div className='flex'>
             <label
               htmlFor='file-upload'
-              className='bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500'>
+              className='rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2'>
               Change
               <input
                 type='file'
@@ -71,8 +71,8 @@ export default function FormTemplateViz({
           )}
         </div>
       </div>
-      <div className='space-x-8 flex items-center'>
-        <div className='w-fit py-3 bg-gray-100 text-right '>
+      <div className='flex items-center space-x-8'>
+        <div className='w-fit bg-gray-100 py-3 text-right '>
           <Button
             link={{
               placeholder: 'Cancel',
@@ -85,7 +85,7 @@ export default function FormTemplateViz({
             }}
           />
         </div>
-        <div className='w-fit py-3 bg-gray-100 text-right '>
+        <div className='w-fit bg-gray-100 py-3 text-right '>
           <Button
             link={{
               placeholder: 'Publish',
