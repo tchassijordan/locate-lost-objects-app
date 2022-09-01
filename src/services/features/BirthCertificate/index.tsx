@@ -1,120 +1,88 @@
 import React from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { TServiceProps } from '~/services/types';
 import { InputField } from '~/components';
-import { postObjHandler, FormTemplateViz, baseSchema } from '~/services';
+import { FormTemplateViz } from '~/services';
+import useAddNewBirthCert from './hooks/useAddNewBirthCert';
 
 export default function BirthCertificateViz({
-  service,
-  onModalToggle
+  serviceType,
+  onModalToggle,
+  isMounted
 }: TServiceProps) {
-  const formik = useFormik({
-    initialValues: {
-      title: '',
-      description: '',
-      date: '',
-      location: '',
-      town_hall: '',
-      imgUrl: ''
-    },
-    validationSchema: Yup.object({
-      ...baseSchema,
-      town_hall: Yup.string().required(
-        'Please enter the town where it was made'
-      )
-    }),
-    onSubmit: async (values) => {
-      await postObjHandler({
-        values: values,
-        collectionCategorie: service,
-        subCollection: 'Documents/birthCertificates/birthCertificatesCollection'
-      });
-      formik.resetForm();
-      onModalToggle();
-    }
-  });
+  const {
+    isSubmitting,
+    handleSubmit,
+    handleBlur,
+    handleChange,
+    resetForm,
+    values,
+    errors,
+    touched,
+    setFieldValue
+  } = useAddNewBirthCert({ serviceType, onModalToggle });
 
   const imageStateHandler = (url: string) => {
-    formik.setFieldValue('imgUrl', url);
+    setFieldValue('imgUrl', url);
   };
+
+  if (!isMounted) return null;
 
   return (
     <FormTemplateViz
-      isSubmitting={formik.isSubmitting}
+      isSubmitting={isSubmitting}
       toggleModal={onModalToggle}
-      handleSubmit={formik.handleSubmit}
-      resetForm={formik.resetForm}
-      service={service}
+      handleSubmit={handleSubmit}
+      resetForm={resetForm}
+      service={serviceType}
       imageStateHandler={imageStateHandler}>
       <form
-        onSubmit={formik.handleSubmit}
+        onSubmit={handleSubmit}
         className='space-y-4'>
         <div className='grid grid-cols-3 space-x-4'>
-          <div>
-            <InputField
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.title}
-              name='title'
-              type='text'
-            />
-            <div className='text-xs tracking-wide text-red-600 sm:text-sm'>
-              {formik.touched.title && formik.errors.title ? (
-                <p>{formik.errors.title}</p>
-              ) : null}
-            </div>
-          </div>
-          <div className=''>
-            <InputField
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.date}
-              name='date'
-              type='text'
-            />
-            <div className='text-xs tracking-wide text-red-600 sm:text-sm'>
-              {formik.touched.date && formik.errors.date ? (
-                <p>{formik.errors.date}</p>
-              ) : null}
-            </div>
-          </div>
           <InputField
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.location}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.title}
+            name='title'
+            type='text'
+            hasError={!!touched.title && !!errors.title}
+            errorMsg={errors.title}
+          />
+          <InputField
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.date}
+            name='date'
+            type='text'
+            hasError={!!touched.date && !!errors.date}
+            errorMsg={errors.date}
+          />
+          <InputField
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.location}
             name='location'
             type='text'
           />
         </div>
-        <div>
-          <InputField
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.description}
-            name='description'
-            type='text'
-          />
-          <div className='text-xs tracking-wide text-red-600 sm:text-sm'>
-            {formik.touched.description && formik.errors.description ? (
-              <p>{formik.errors.description}</p>
-            ) : null}
-          </div>
-        </div>
-        <div>
-          <InputField
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            name='town_hall'
-            type='text'
-            value={formik.values.town_hall}
-          />
-          <div className='text-xs tracking-wide text-red-600 sm:text-sm'>
-            {formik.touched.town_hall && formik.errors.town_hall ? (
-              <p>{formik.errors.town_hall}</p>
-            ) : null}
-          </div>
-        </div>
+        <InputField
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.description}
+          name='description'
+          type='text'
+          hasError={!!touched.description && !!errors.description}
+          errorMsg={errors.description}
+        />
+        <InputField
+          onChange={handleChange}
+          onBlur={handleBlur}
+          name='town_hall'
+          type='text'
+          value={values.town_hall}
+          hasError={!!touched.town_hall && !!errors.town_hall}
+          errorMsg={errors.town_hall}
+        />
       </form>
     </FormTemplateViz>
   );

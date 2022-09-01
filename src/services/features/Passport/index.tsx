@@ -1,166 +1,115 @@
 import React from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { TServiceProps } from '~/services/types';
 import { InputField } from '~/components';
-import { postObjHandler, FormTemplateViz, baseSchema } from '~/services';
+import { FormTemplateViz } from '~/services';
+import useAddNewPassport from './hooks/useAddNewPassport';
 
-export default function Passport({ service, onModalToggle }: TServiceProps) {
-  const formik = useFormik({
-    initialValues: {
-      title: '',
-      description: '',
-      date: '',
-      location: '',
-      town_isssued: '',
-      expiration_date: '',
-      passport_number: '',
-      passport_owner: '',
-      imgUrl: ''
-    },
-    validationSchema: Yup.object({
-      ...baseSchema,
-      passport_number: Yup.string()
-        .required('You must provide a passport number')
-        .matches(/^\d{7}/, 'Passport number must be 7 digits'),
-      passport_owner: Yup.string().required(
-        'You must specify the owner of this CNI'
-      ),
-      expiration_date: Yup.string().matches(
-        /^\d{4}-\d{2}-\d{2}$/,
-        'Accepted format YYYY-MM-DD'
-      )
-    }),
-    onSubmit: async (values) => {
-      await postObjHandler({
-        values: values,
-        collectionCategorie: service,
-        subCollection: 'Documents/passports/passportsCollection'
-      });
-      formik.resetForm();
-      onModalToggle();
-    }
-  });
+export default function Passport({
+  serviceType,
+  onModalToggle,
+  isMounted
+}: TServiceProps) {
+  const {
+    isSubmitting,
+    handleSubmit,
+    handleBlur,
+    handleChange,
+    resetForm,
+    values,
+    errors,
+    touched,
+    setFieldValue
+  } = useAddNewPassport({ serviceType, onModalToggle });
 
   const imageStateHandler = (url: string) => {
-    formik.setFieldValue('imgUrl', url);
+    setFieldValue('imgUrl', url);
   };
+
+  if (!isMounted) return null;
 
   return (
     <FormTemplateViz
-      isSubmitting={formik.isSubmitting}
+      isSubmitting={isSubmitting}
       toggleModal={onModalToggle}
-      handleSubmit={formik.handleSubmit}
-      resetForm={formik.resetForm}
-      service={service}
+      handleSubmit={handleSubmit}
+      resetForm={resetForm}
+      service={serviceType}
       imageStateHandler={imageStateHandler}>
       <form
-        onSubmit={formik.handleSubmit}
+        onSubmit={handleSubmit}
         className='space-y-4'>
         <div className='grid grid-cols-3 space-x-4'>
-          <div>
-            <InputField
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.title}
-              name='title'
-              type='text'
-            />
-            <div className='text-xs tracking-wide text-red-600 sm:text-sm'>
-              {formik.touched.title && formik.errors.title ? (
-                <p>{formik.errors.title}</p>
-              ) : null}
-            </div>
-          </div>
-          <div className=''>
-            <InputField
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.date}
-              name='date'
-              type='text'
-            />
-            <div className='text-xs tracking-wide text-red-600 sm:text-sm'>
-              {formik.touched.date && formik.errors.date ? (
-                <p>{formik.errors.date}</p>
-              ) : null}
-            </div>
-          </div>
           <InputField
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.location}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.title}
+            name='title'
+            type='text'
+            hasError={!!touched.title && !!errors.title}
+            errorMsg={errors.title}
+          />
+          <InputField
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.date}
+            name='date'
+            type='text'
+            hasError={!!touched.date && !!errors.date}
+            errorMsg={errors.date}
+          />
+          <InputField
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.location}
             name='location'
             type='text'
           />
         </div>
         <div className='grid grid-cols-3 space-x-4'>
-          <div>
-            <InputField
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              name='passport_number'
-              type='text'
-              value={formik.values.passport_number}
-            />
-            <div className='text-xs tracking-wide text-red-600 sm:text-sm'>
-              {formik.touched.passport_number &&
-              formik.errors.passport_number ? (
-                <p>{formik.errors.passport_number}</p>
-              ) : null}
-            </div>
-          </div>
           <InputField
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            name='passport_number'
+            type='text'
+            value={values.passport_number}
+            hasError={!!touched.passport_number && !!errors.passport_number}
+            errorMsg={errors.passport_number}
+          />
+          <InputField
+            onChange={handleChange}
+            onBlur={handleBlur}
             name='town_isssued'
             type='text'
-            value={formik.values.town_isssued}
+            value={values.town_isssued}
           />
-          <div>
-            <InputField
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              name='expiration_date'
-              type='text'
-              value={formik.values.expiration_date}
-            />
-            <div className='text-xs tracking-wide text-red-600 sm:text-sm'>
-              {formik.touched.expiration_date &&
-              formik.errors.expiration_date ? (
-                <p>{formik.errors.expiration_date}</p>
-              ) : null}
-            </div>
-          </div>
-        </div>
-        <div className=''>
           <InputField
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.passport_owner}
-            name='passport_owner'
+            onChange={handleChange}
+            onBlur={handleBlur}
+            name='expiration_date'
             type='text'
+            value={values.expiration_date}
+            hasError={!!touched.expiration_date && !!errors.expiration_date}
+            errorMsg={errors.expiration_date}
           />
-          <div className='text-xs tracking-wide text-red-600 sm:text-sm'>
-            {formik.touched.passport_owner && formik.errors.passport_owner ? (
-              <p>{formik.errors.passport_owner}</p>
-            ) : null}
-          </div>
         </div>
-        <div>
-          <InputField
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.description}
-            name='description'
-            type='text'
-          />
-          <div className='text-xs tracking-wide text-red-600 sm:text-sm'>
-            {formik.touched.description && formik.errors.description ? (
-              <p>{formik.errors.description}</p>
-            ) : null}
-          </div>
-        </div>
+        <InputField
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.passport_owner}
+          name='passport_owner'
+          type='text'
+          hasError={!!touched.passport_owner && !!errors.passport_owner}
+          errorMsg={errors.passport_owner}
+        />
+        <InputField
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.description}
+          name='description'
+          type='text'
+          hasError={!!touched.description && !!errors.description}
+          errorMsg={errors.description}
+        />
       </form>
     </FormTemplateViz>
   );

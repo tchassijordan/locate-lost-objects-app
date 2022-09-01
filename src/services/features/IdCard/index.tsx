@@ -1,133 +1,99 @@
 import React from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { TServiceProps } from '~/services/types';
 import { InputField } from '~/components';
-import { postObjHandler, FormTemplateViz, baseSchema } from '~/services';
+import { FormTemplateViz } from '~/services';
+import useAddNewIdCard from './hooks/useAddNewId';
 
-export default function IdCard({ service, onModalToggle }: TServiceProps) {
-  const formik = useFormik({
-    initialValues: {
-      title: '',
-      description: '',
-      date: '',
-      location: '',
-      numero_CNI: '',
-      owner: '',
-      imgUrl: ''
-    },
-    validationSchema: Yup.object({
-      ...baseSchema,
-      numero_CNI: Yup.string()
-        .required('You must provide a valid CNI number')
-        .matches(/^\d{9}/, 'CNI number must be 9 digits'),
-      owner: Yup.string().required('You must specify the owner of this CNI')
-    }),
-    onSubmit: async (values) => {
-      await postObjHandler({
-        values: values,
-        collectionCategorie: service,
-        subCollection: 'Documents/CNI/cniCollection'
-      });
-      formik.resetForm();
-      onModalToggle();
-    }
-  });
+export default function IdCard({
+  serviceType,
+  onModalToggle,
+  isMounted
+}: TServiceProps) {
+  const {
+    isSubmitting,
+    handleSubmit,
+    handleBlur,
+    handleChange,
+    resetForm,
+    values,
+    errors,
+    touched,
+    setFieldValue
+  } = useAddNewIdCard({ serviceType, onModalToggle });
 
   const imageStateHandler = (url: string) => {
-    formik.setFieldValue('imgUrl', url);
+    setFieldValue('imgUrl', url);
   };
+
+  if (!isMounted) return null;
 
   return (
     <FormTemplateViz
-      isSubmitting={formik.isSubmitting}
+      isSubmitting={isSubmitting}
       toggleModal={onModalToggle}
-      handleSubmit={formik.handleSubmit}
-      resetForm={formik.resetForm}
-      service={service}
+      handleSubmit={handleSubmit}
+      resetForm={resetForm}
+      service={serviceType}
       imageStateHandler={imageStateHandler}>
       <form
-        onSubmit={formik.handleSubmit}
+        onSubmit={handleSubmit}
         className='space-y-4'>
         <div className='grid grid-cols-3 space-x-4'>
-          <div>
-            <InputField
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.title}
-              name='title'
-              type='text'
-            />
-            <div className='text-xs tracking-wide text-red-600 sm:text-sm'>
-              {formik.touched.title && formik.errors.title ? (
-                <p>{formik.errors.title}</p>
-              ) : null}
-            </div>
-          </div>
-          <div className=''>
-            <InputField
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.date}
-              name='date'
-              type='text'
-            />
-            <div className='text-xs tracking-wide text-red-600 sm:text-sm'>
-              {formik.touched.date && formik.errors.date ? (
-                <p>{formik.errors.date}</p>
-              ) : null}
-            </div>
-          </div>
           <InputField
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.location}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.title}
+            name='title'
+            type='text'
+            hasError={!!touched.title && !!errors.title}
+            errorMsg={errors.title}
+          />
+          <InputField
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.date}
+            name='date'
+            type='text'
+            hasError={!!touched.date && !!errors.date}
+            errorMsg={errors.date}
+          />
+          <InputField
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.location}
             name='location'
             type='text'
+            hasError={!!touched.location && !!errors.location}
+            errorMsg={errors.location}
           />
         </div>
-        <div>
-          <InputField
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.description}
-            name='description'
-            type='text'
-          />
-          <div className='text-xs tracking-wide text-red-600 sm:text-sm'>
-            {formik.touched.description && formik.errors.description ? (
-              <p>{formik.errors.description}</p>
-            ) : null}
-          </div>
-        </div>
-        <div className=''>
-          <InputField
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.owner}
-            name='owner'
-            type='text'
-          />
-          <div className='text-xs tracking-wide text-red-600 sm:text-sm'>
-            {formik.touched.owner && formik.errors.owner ? (
-              <p>{formik.errors.owner}</p>
-            ) : null}
-          </div>
-        </div>
-        <div>
-          <InputField
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.numero_CNI}
-            name='numero_CNI'
-            type='text'
-          />
-          <div className='text-xs tracking-wide text-red-600 sm:text-sm'>
-            {formik.touched.numero_CNI && formik.errors.numero_CNI ? (
-              <p>{formik.errors.numero_CNI}</p>
-            ) : null}
-          </div>
-        </div>
+        <InputField
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.description}
+          name='description'
+          type='text'
+          hasError={!!touched.description && !!errors.description}
+          errorMsg={errors.description}
+        />
+        <InputField
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.owner}
+          name='owner'
+          type='text'
+          hasError={!!touched.owner && !!errors.owner}
+          errorMsg={errors.owner}
+        />
+        <InputField
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.numero_CNI}
+          name='numero_CNI'
+          type='text'
+          hasError={!!touched.numero_CNI && !!errors.numero_CNI}
+          errorMsg={errors.numero_CNI}
+        />
       </form>
     </FormTemplateViz>
   );

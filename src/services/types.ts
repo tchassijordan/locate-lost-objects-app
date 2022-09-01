@@ -1,6 +1,7 @@
 export type TServices = 'lostObjects' | 'foundObjects';
 
 export type TServiceProps = {
-  service: TServices;
+  serviceType: TServices;
   onModalToggle: () => void;
+  isMounted: boolean;
 };

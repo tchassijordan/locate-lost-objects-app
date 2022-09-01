@@ -74,24 +74,21 @@ export default function ServiceViz({ showModal, setShowModal }: TProps) {
                   ))}
                 </ul>
                 <div>
-                  {activeDocumentType === 'Birth Certificates' && (
-                    <BirthCertificate
-                      service={activeServiceType}
-                      onModalToggle={setShowModal}
-                    />
-                  )}
-                  {activeDocumentType === 'Passports' && (
-                    <Passport
-                      service={activeServiceType}
-                      onModalToggle={setShowModal}
-                    />
-                  )}
-                  {activeDocumentType === 'CNI' && (
-                    <IdCard
-                      service={activeServiceType}
-                      onModalToggle={setShowModal}
-                    />
-                  )}
+                  <BirthCertificate
+                    serviceType={activeServiceType}
+                    onModalToggle={setShowModal}
+                    isMounted={activeDocumentType === 'Birth Certificates'}
+                  />
+                  <Passport
+                    serviceType={activeServiceType}
+                    onModalToggle={setShowModal}
+                    isMounted={activeDocumentType === 'Passports'}
+                  />
+                  <IdCard
+                    serviceType={activeServiceType}
+                    onModalToggle={setShowModal}
+                    isMounted={activeDocumentType === 'CNI'}
+                  />
                   {/* selected === 'Other Documents' && <OtherDocs />}
               { selected === 'Non documents' && <Others /> */}
                 </div>
