@@ -1,41 +1,26 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router';
+import React from 'react';
 import defaultPostImg from '../assets/hero-bg.jpg';
 import Main from '../layout/main';
 import LoadingSVG from '../assets/icons/LoadingSVG';
-import { getDocumentData } from '~/utils';
-import { TGetCollectionsProps } from '~/features/Viz/hooks/useGetDocumentsCollection';
-import { TObject } from '~/lib/types';
-
-interface ILocation {
-  pathname: string;
-  state: {
-    itemMetaData: TGetCollectionsProps;
-    id: string;
-  };
-}
+import { useGetDocumentData } from '~/lib/hooks/useGetDocumentData';
+import { Button } from '~/components';
+import { Link } from 'react-router-dom';
 
 export default function PostDetails() {
-  const location = useLocation() as ILocation;
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<TObject>();
+  const { data, isLoading } = useGetDocumentData();
 
-  const fetcher = async () => {
-    if (loading) {
-      const url = `/${location.state.itemMetaData.serviceType}/Documents/${location.state.itemMetaData.documentType}/${location.state.itemMetaData.documentCollection}Collection/${location.state.id}`;
-      const data = await getDocumentData({ url });
-      if (typeof data === null) return;
-      setData(data as TObject);
-      setLoading(false);
-    }
-  };
-
-  fetcher();
+  if (isLoading) {
+    return (
+      <div className='flex min-h-[calc(100vh_-_theme(height.20))] w-full items-center justify-center'>
+        <LoadingSVG className='mx-auto h-[40px] w-[40px] animate-spin text-primary' />
+      </div>
+    );
+  }
 
   return (
     <Main>
       <div className='flex min-h-[calc(100vh_-_theme(height.20))] w-full items-center justify-center'>
-        {!loading && data ? (
+        {data ? (
           <div className='flex max-w-6xl space-x-10 py-16 px-4'>
             <div className='h-full basis-3/6 shadow-md'>
               <img
@@ -57,12 +42,12 @@ export default function PostDetails() {
                   </p>
                   {data.expiration && (
                     <p className='text-xs sm:text-sm'>
-                      Expiration date: {data.expiration}
+                      Expiration date: {data?.expiration ?? 'N/A'}
                     </p>
                   )}
                   {data.postID && (
                     <p className='text-xs sm:text-sm'>
-                      Passport ID: {data.postID}
+                      Passport ID: {data?.postID ?? 'N/A'}
                     </p>
                   )}
                 </div>
@@ -70,7 +55,19 @@ export default function PostDetails() {
             </div>
           </div>
         ) : (
-          <LoadingSVG className='mx-auto h-[40px] w-[40px] animate-spin text-primary' />
+          <div className='flex flex-col items-center justify-center gap-4'>
+            <p>No data to show!</p>
+            <Link to='/'>
+              <Button
+                link={{
+                  placeholder: 'Back to home',
+                  primary: true,
+                  classes: 'w-40 flex justify-center items-center',
+                  text_first: true
+                }}
+              />
+            </Link>
+          </div>
         )}
       </div>
     </Main>
