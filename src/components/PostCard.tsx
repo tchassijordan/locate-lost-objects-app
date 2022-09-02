@@ -23,7 +23,7 @@ export default function PostCard({ data }: TPostCardProps) {
           <p className='text-xs text-gray-600 sm:text-sm'>{date}</p>
         </div>
         <Link
-          to={`post_object/${id}`}
+          to={`post/${id}`}
           state={{
             itemMetaData,
             id: id

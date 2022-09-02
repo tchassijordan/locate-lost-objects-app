@@ -1,14 +1,14 @@
 import React from 'react';
 import { Routes } from 'react-router';
 import { Route } from 'react-router-dom';
-import AdminDashboard from '../pages/AdminDashboard';
-import SignIn from '../pages/SignIn';
-import SignUp from '../pages/SignUp';
+import AdminDashboard from '~/pages/AdminDashboard';
+import SignIn from '~/pages/SignIn';
+import SignUp from '~/pages/SignUp';
 //import Profile from '../pages/Profile';
-import Account from '../pages/Account';
+import Account from '~/pages/Account';
 import ProtectedRoute from './ProtectedRoute';
-import PostObject from '../pages/PostObject';
-import Home from '../pages/Home/index';
+import PostDetails from '~/pages/PostDetails';
+import Home from '~/pages/Home/index';
 
 const Router = () => {
   return (
@@ -18,7 +18,7 @@ const Router = () => {
           index
           element={<Home />}
         />
-        
+
         <Route
           path='sign_in'
           element={<SignIn />}
@@ -28,7 +28,7 @@ const Router = () => {
           path='sign_up'
           element={<SignUp />}
         />
-        
+
         {/* Account is suppose to be a dynamic route so modify it */}
         <Route
           path='account'
@@ -45,8 +45,8 @@ const Router = () => {
         /> */}
 
         <Route
-          path='post_object/:id'
-          element={<PostObject />}
+          path='post/:id'
+          element={<PostDetails />}
         />
 
         <Route

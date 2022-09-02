@@ -15,7 +15,7 @@ interface ILocation {
   };
 }
 
-export default function PostObject() {
+export default function PostDetails() {
   const location = useLocation() as ILocation;
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<TObject>();
